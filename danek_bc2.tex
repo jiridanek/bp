@@ -1,0 +1,273 @@
+%% Load document class fithesis2
+%% {10pt, 11pt, 12pt}
+%% {draft, final}
+%% {oneside, twoside}
+%% {onecolumn, twocolumn}
+\documentclass[11pt,draft,oneside]{fithesis2}
+
+%% Basic packages
+\usepackage[czech]{babel}
+\usepackage{cmap}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+%% Additional packages for colors, advanced
+%% formatting options, etc.
+\usepackage{color}
+\usepackage{microtype}
+\usepackage{url}
+\usepackage{cslatexquotes}
+\usepackage{fancyvrb}
+\usepackage[small,bf]{caption}
+\usepackage[plainpages=false,pdfpagelabels,unicode]{hyperref}
+\usepackage[all]{hypcap}
+
+%% Fix long URLs in DVIs
+\usepackage{ifpdf}
+
+\ifpdf
+\else
+  \usepackage{breakurl}
+\fi
+
+%% Packages used to generate various lists
+\usepackage{makeidx}
+\makeindex
+
+\usepackage[xindy]{glossaries}
+\makeglossary
+
+%% Use STAR and CIRCLE signs for nested
+%% itemized lists
+%\renewcommand{\labelitemii}{$\star$}
+%\renewcommand{\labelitemiii}{$\circ$}
+
+%% \TODO příkaz
+%\usepackage{xcolor}
+\newcommand\todo[1]{\textcolor{red}{[[#1]]}}
+ \renewcommand\todo[1]{}
+
+\usepackage{natbib}             % sazba pouzite literatury
+%\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>}\urlstyle{tt}}  %rm/sf/tt
+%\renewcommand{\emph}[1]{\textsl{#1}}    % melo by byt kurziva nebo sklonene,
+
+%% Title page information
+\thesistitle{Srovnání semiempirických metod EEM a QEq pro výpočet nábojů v molekulách}
+\thesissubtitle{Bakalářská práce}
+\thesisstudent{Jiří Daněk}
+\thesiswoman{false} %% Important when using Slovak or Czech lang
+\thesisfaculty{fi}  %% {fi, eco, law, sci, fsps, phil, ped, med, fss}
+\thesislang{cs}     %% {en, sk, cs}
+\thesisyear{jaro 2013}
+\thesisadvisor{RNDr. Radka Svobodová Vařeková, Ph.D.}
+
+%% Beginning of the document
+\begin{document}
+
+%% Front page with a logo and basic thesis information
+\FrontMatter
+\ThesisTitlePage
+
+%% Thesis declaration (required)
+\begin{ThesisDeclaration}
+  \DeclarationText
+  \AdvisorName
+\end{ThesisDeclaration}
+
+%% Thanks (optional)
+\begin{ThesisThanks}
+Rád bych na tomto místě poděkoval absolventu Fakulty informatiky Mgr. Stanislavu Filipčíkovi, autorovi šablony fithesis2 pro sazbu závěrečné práce v systému \LaTeX{}.
+
+Řešení bakalářské práce mi značně zjednodušila možnost provést časové náročné výpočty v programu Gaussian 2008 na počítačích zpřístupněných v rámci Národní gridové infrastruktury MetaCentrum.
+
+V neposlední řadě chci také poděkovat svým rodičům za podporu ve studiu.
+
+%Rád bych na tomto místě poděkoval přispěvatelům Národní gridové infrastruktuře MetaCentrum za poskytnutí přístupu k výpočetním prostředkům a kvantově chemickému software.
+
+%%Velice oceňuji přístup k výpočetním a diskovým kapacitám a výpočetnímu software Národní gridové infrastruktuře MetaCentrum.
+
+%%The access to computing and storage facilities owned by parties and projects contributing to the National Grid Infrastructure MetaCentrum, provided under the programme "Projects of Large Infrastructure for Research, Development, and Innovations" (LM2010005) is highly appreciated/acknowledged. Přesnost empirických metod posuzovaných v této práci jsem srovnával s výsledky ab-initio výpočtů v programu Gaussian 2008.  výpočty v kvantově chemickém programu Gaussian 2008 mi značně zjednodušila možnost provádět je na počítačích Národní gridové infrastruktury MetaCentrum, za což bych chtěl MetaCentru poděkovat. Kvantově chemického software . za poskytnutí strojového času,
+\end{ThesisThanks}
+
+%% Abstract (required)
+\begin{ThesisAbstract}
+%% ) Implementovat EEM i QEq
+%% b) K obema najit vsechny publikovane parametry (u EEM je uz mame  nalezene, je
+%% jich 18 ruznych sad)
+%% c) Otestovat na nejake rozumne velke sade molekul (napr. 1000 molekul), jak
+%% presne je EEM a QEq s jednotlivymi parametry
+
+%% Pearsonova koericientu, RMSE, prumerne odchylky 
+
+%% srovnání s kvantově chemicky vypočtenými náboji.
+
+%% oznamka: Muzeme pouzit i vic sad molekul - napr. polarni, nepolarni, molekuly
+%% leku, atd.
+
+%%poskytují jen velmi hrubou
+%chemici si vždy byli vědomi, že
+Parciální náboje charakterizují elektronovou strukturu molekuly jen velmi omezeně, poskytují však cenné kvalitativní informace o chemických, fyzikálních i biologických vlastnostech molekul. Pro výpočet parciálních nábojů bylo zavedeno vícero definic postihujících elektronovou strukturu molekul různým způsobem. Výpočet nábojů přímo dle definice často vyžaduje použití výpočetně náročných ab-initio metod, a proto se využívá i méně přesných empirických metod, které na základě parametrů získaných z dříve provedených ab-initio výpočtů aproximují parciální náboje s výrazně menší výpočetní náročností. Tato bakalářská práce popisuje a srovnává dvě empirické metody pro určování Mullikenových parciálních nábojů, EEM (Electronegativity equalization method) a QEq (Charge equilibration).
+
+Přínos práce spočívá v implementování solverů pro EEM i QEq pod svobodnou licencí, ve vytvoření ucelené databáze dříve publikovaných sad parametrů pro metodu QEq a ve vyhodnocení přesnosti obou studovaných metod a všech shromážděných sad parametrů na rozsáhlé testovací sadě 1000 anorganických molekul.
+
+Partial charges, or net atomic charges, are only a crude description of the electronic structure of a molecule. Nevertheless, they are an useful characteristic of a molecule that can provide qualitative insights into physical, chemical and biological properties of a compound. There are several definitions of partial atomic charges that all reflect the electronic structure of the molecule in different ways and are therefore are incompatible with each other. Some definitions can be straightforwardly transformed into an ab-initio computation, which is usually impractically slow. Many empirical methods have been subsequently developed, each aims to provide results close to a particular ab-initio metod but in significantly shorter time. This thesis concerns itself with characterization and evaluation of two such empirical methods that have been developed for estimating Mulliken partial charges, namely EEM (Electronegativity equalization method) and QEq (Charge equilibration).
+
+This thesis improves on the previously published research by compiling a comprehensive list of previously published parameter sets for the QEq method and by providing an evaluation of the accuracy of both EEM and QEq methods on a large test set of 1000 species of inorganic molecules. EEM and QEq solvers developed while working at this thesis are released under an open-source licence.
+
+%This thesis is structured as follows. The problem of partial atomic charge estimation is first introduced assuming no computational chemistry experience. The principle of EEM and Qeq is explained. Both methods are implemented, parameter sets from previous published literature are compilled. Methods are evaluated by comparing the predicted charges with a gold standard of computed using the ab-initio method on Test set of drug published by the Welcome Trust regarding \todo{accuracy} using several statistical measures. The merits of this thesis of the published QEq parameter set and in evaluation of both methods with all parameter sets on a large set of 1000 inorganic molecules.
+
+%Tato práce popisuje a srovnává dvě empirické metody pro určení .
+
+%Tento problém řeší empirické metody, které se snaží kopírovat vý dávat výsledky metody podle které byly parametrizovány za výrazně menší výpočetní náročnost.
+
+%Prezentuje sady parametrů pro QEq v publikované literatuře. Srovnání metod mezi sebou a s ab-initio metodou na základě které byly parametrizovány na vícero skupinách molekul. Pro různé sady molekul. 
+
+
+
+%Ukazuje se, že obě metody jsou v dobré shodě s ab-initio výpočtem. Metoda QEq dosahuje výrazně lepších výsledků než EEM za cenu jen mírného zvýšení časové náročnosti výpočtu.
+
+%reaktivitě  V posuzuje metody dvě empirické metody pro výpočet nábojů v molekulách EEM a Qeq z hlediska rychlosti, se soustředí na empirické metody pro rychlý výpočet parcialních nábojů atomů. Obě metody jsou nejprve uvedeny do širšího kontextu. Srovnání je provedeno na sadě "Drug targets" Welcome Trust. 
+
+%V této práci jsem implementoval dvě empirické metody pro stanovení parcialních nábojů atomů a srovnal je z hlediska rychlosti a kvality výsledku s přístupy Ab initio. EEM a Qeq
+
+%%Parcialní náboje se definují pomocí
+\end{ThesisAbstract}
+
+%% Keywords (required)
+\begin{ThesisKeyWords}
+Huckellovy parcialní náboje, Electronegativity equalization method, Charge equilibration
+
+Huckell partial charges, net atomic charges, Electronegativity equalization method, Charge equilibration
+\end{ThesisKeyWords}
+
+%% Beginning of the thesis itself
+\MainMatter
+
+%% TOC (required)
+\tableofcontents
+
+%% Thesis text structured using
+%% chapters, sections, subsections, etc.
+\chapter*{Úvod}
+
+%Parcialní náboje jsou velmi starý chemický koncept, který popisuje distribuci elektronové hustoty pomocí bodových nábojů lokalizovaných na jádrech atomů. dává do souvislosti některé vlastnosti molekuly jako celku a topologii jejích chemických vazeb. Pro jednotlivé atomy definujeme jejich elektronegativitu, neboli schopnost přitahovat elektrony. Naopak valenční elektrony . Atomy navázané na s vyšší elektronegativitou nabývají parcialní kladný náboj v důsledku ztráty valenčních elektronů,
+
+\section{Ab initio, semiemperické a emperické metody}
+
+Latinská fráze \emph{Ab initio}, která se překládá jako „z prvotních principů“, v kontextu výpočetní chemie označuje výpočetní metody, které vycházejí z kvantové mechaniky. Vlnová funkce je úplnou charakteristikou systému. Takovéto metody fungují na principu určení vlnové funkce a z ní následně žádaných veličin. Někteří autoři do této skupiny zahrnují i metody založené na funkcionálu elektronové hustoty.
+
+Semiempirické metody jsou modifikací ab initio metod takovou, že tam, kde to výrazně přispěje ke zrychlení výpočtu, se i za cenu nižší přesnosti použije předem určených parametrů, které mohou být určeny i experimentálně. V praxi se ukazuje, že v rámci určité třídy molekul bývají empirické parametry velmi podobné, a proto je možné stejnou parametrizaci použít pro všechny molekuly dané třídy a za cenu snížené přesnosti tak výrazně zkrátit čas výpočtu.
+
+Empirické metody staví na jiných teoretických základech, než je kvantová mechanika. Příkladem může být molekulová mechanika, technika pro určování konformace a dalších parametrů molekul na základě zjednodušeného modelu molekuly, který je založený na zákonech klasické fyziky (chemická vazba se například reprezentuje jako pružina)
+
+%Klasickou Newtonovskou mechaniku je možno označit za empirickou teorii. Gravitační konstanta je empirický parametr. Relativistická fyzika tuto konstantu vypočítat.
+
+
+%An alternative measure of the charge distribution involves a partitioning into partial atomic charges. While such partitioning is always arbitrary (see Chapter 9) simple methods tend to
+
+%Valence orbitals, on the other hand, can vary widely as a function of chemical bonding. Atoms bonded to significantly more electronegative elements take on partial positive charge from loss of valence electrons, and thus their remaining density is distributed more compactly. The reverse is true when the bonding is to a more electropositive element. From a chemical
+
+
+
+\todo{proč počítat parcialní náboje}
+
+%Highly charged regions of molecule are the most reactive locations
+%Charges = clue to reactivity
+%Charges provide a very useful information about a molecule
+%Charges provide a deep insight into a chemical behaviour of a molecule
+%Charges are excellent descriptors in QSPR and are necessary in simulations = molekulová mechanika
+
+%predikce fyzických, chemických a biologických vlastnosti
+% a jsou parametrem vstupem mnoha výpočetních modelů na předpovídání
+
+%výpočet stability molekul
+
+%odhad směru průběhu chemické reakce
+
+%předpovědi interakcí s dalšími molekulami
+
+\todo{parcialní náboje mají fyzikální smysl}
+
+\todo{experimentalni dukazy spektroskopie}
+
+\todo{polarita molekul}
+
+\todo{vyuziti naboju k fitovani vlastnosti}
+
+\todo{dipolove momenty, ...}
+
+
+Atomové náboje jsou experimentálně neměřitelný teoretický koncept, úzce souvisí s rozložením elektronové hustoty v molekule poskytují celou řadu užitečných informací. Simulace
+
+
+značně nepřesná charakterizace
+
+Atomové náboje jsou realná čísla, která popisují podíl elektronové hustoty příslušející k atomům v molekule. Příčinou vzniku atomových nábojů je nerovnoměrného rozložení elektronů v chemických vazbách. 
+
+%Parametrizace EEM pro biomolekuly
+
+%Roentgenová krystalografie
+
+Rozložení elektronové hustoty v molekule je pozorovatelná veličina. Existuje pro ně kvantový operátor a možno pozorovat například pomocí Roentgenové krystalografie. je možno měřit, přiřazení elektronů k atomům je pouze zjednodušující popis realné distribuce elektronové hustoty.
+
+%There is no experimental method for obtaining of charges
+
+$$E=\frac{q_1 q_2}{\epsilon r_{1,2}}$$
+
+%Parcialní náboje ne
+
+Existuje mnoho přístupů pro výpočet nábojů, většínou dávají rozdílné výsledky důležitá je relativní porovnávání nábojů, a trendy, nikoli jejich velikost. Kritériem správnosti jsou přesnost a obecnost – shoda s experimentem a přenositelnost parametrů.
+
+\chapter{Parcialní náboje}
+
+Jedna z teoretických opor v organické chemii je idea parcialních nábojů. Jejich význam v chemické teorii je především kvalitativní. Pomocí ních je možno vysvětlit jevy jako vodíkové vazby, nebo reaktivitu funkčních skupin (pojmy jako indukční a mezomerní efekt). Distribuci elektronů je možno přesně měřit metodami jako je roentgenová krystalografie, případně ji vypočíst pomocí ab initio metod. Problém je s přiřazením náboje k jednotlvým atomům. K tomu existují různé metody, které dávají různé výsledky.
+
+Parcialní náboje je možno použít i kvantitativně, například k predikci disociačních konstant. V tom případě je ale vždy dáno, jakou metodou je nutno náboje počítat.
+
+Pro výpočet parcialních nábojů bylo zavedeno vícero definic postihujících elektronovou strukturu molekul různým způsobem.
+
+\subsection{Metody výpočtu}
+
+Metody pro výpočet nábojů se dají rozdělit do čtyř kategorií. \citep[s.~50]{cramer2004essentials}
+
+Třída I představuje emperické metody, které vycházejí nikoli z kvantové mechaniky, ale jsou založeny na analogiích a intuici tvůrců. Tyto metody mohou využívat experimentálních dat, jako jsou dipólové momenty nebo elektronegativity.
+
+\todo{definice elektonové hustoty a vzorec}
+
+Třídy II a III zahrnují metody, které vycházejí buď přímo z vlnové funkce (třída II), nebo z pozorovatelné veličiny z vlnové funkce vypočtené (třída III), například z elektronové hustoty, a na základě intuitivně zvoleného schématu ji rozdělí na příspěvky od jednotlivých atomů.
+
+Třída IV je vyhrazena metodám, které vycházejí z metod ve třídách II a III, rozdělení nábojů ale hledají takové, které nejlépe odpovídá experimentálně určeným parametrům, například dipólovému momentu molekuly.
+
+Metody třídy II a III jsou považovány za standard a definuje náboje. Metody ve třídě IV se snaží tyto náboje zpřesňovat, aby lépe vyhovovaly. Metody ve třídě I se snaží a poskytovat výsledky rychleji.
+
+
+
+%Výsledkem této práce je 
+%Ačkoli jsou atomové parcialní náboje v principu neměřitelný teoretický konstrukt, zůstanou i na dále důležitým prvkem v chemii. Do způsobů, jak je určovat bylo investováno mnoho výzkumného úsili.
+
+%Polární molekuly
+
+%Nepolární molekuly
+
+%Molekuly léčiv
+
+%Metoda 
+
+%% Lists of tables and figures, glossary, etc.
+%\printindex
+%\printglossary
+%\listoffigures
+%\listoftables
+
+%% Bibliography from citace.bib
+%\bibliographystyle{plain}
+\bibliographystyle{csplainnat}
+\bibliography{citace}
+
+%% Additional materials
+\appendix
+
+%% End of the whole document
+\end{document}

@@ -1,0 +1,200 @@
+%
+% Hello! Here's how this works:
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook at
+% http://en.wikibooks.org/wiki/LaTeX
+% is a great place to start, and there are some examples in this
+% document, too.
+%
+% Enjoy!
+%
+\documentclass[12pt]{article}
+
+\usepackage[czech]{babel}
+\usepackage[utf8x]{inputenc}
+%\usepackage{amsmath}
+%\usepackage{graphicx}
+
+\usepackage{color}
+
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+
+\newcommand\todo[1]{\textcolor{red}{[[#1]]}}
+
+
+\title{Přináší větší bezpečnostní hrozby zvyšování výpočetního výkonu, nebo socialní inženýrství?}
+\author{Jiří Daněk, 374368}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%Your abstract.
+%\end{abstract}
+
+%\section{Introduction}
+
+V kontextu informačních technologií rozumíme pod pojmen bezpečností hrozba takové situace nebo procesy, které mohou ohrozit informační ifrastrukturu nebo data patřící chráněné organizaci. Stejným termínem můžeme označit i původce takových situací nebo vykonavatele těchto procesů
+
+Eliminace bezpečnostích hrozeb bývá v kontextu průmyslu doménou specializovaného bezpečnostního oddělení. Úkolem bezpečnostního oddělení je
+
+\begin{enumerate}
+\item identifikovat rizika a vyhodnotit je z hlediska priority, většinou dle potenciálu poškodit obchodní záměry firmy
+\item nalézat technická i jiná řeštení těchto rizik a nasazovat je do praxe
+\item monitorovat bezpečnostní situaci.
+\end{enumerate}
+
+Oblast identifikace rizik značně přesahuje rámec IT. Stručně je možné vyzdvihnout zejména ochranu duševního vlastnictví společnosti před konkurencí, ochranu důvěrných osobních dat\todo{,} jak vyžaduje platná legislativa a ochranu informací o hospodaření společnosti. Z infrastruktury se jedná o zajíštění dostupnosti kritických systémů pro pracovníky společnosti, stejně jako zajíštění systému umožňujících vzdálený přístup k informacím pro zákazníky, pokud firma takové poskytuje.
+
+% data klientů, data společnosti, produkty společnosti
+
+Utajováním informací se lidstvo zabývalo odpradávna, a proto nás nemůže překvapit, že škála prostředků vytvořených za tímto účelem je velmi široká. Utajováním informací se zabývají dvě nauky, steganografie a kryptografie. Steganografie znamená \textit{skryté psaní} a sestává z technik, jak před protivníkem utajit samu existenci utajované informace. Přikladem z historie může být historka o panovníkovi, který tajnou zprávu nechal vytetovat poslovi na pokožku hlavy, počkal, až mu narostou vlasy a teprve pak posla vyslal přes nepřátelské území. V současnosti se jedná například o metody doplňující kryprografickou ochranu o \textit{plausible denial}, utajená data na datovém nosiči nejsou před dešifrováním rozeznatelná od náhodného šumu.
+%Odstavec
+Kryptografie se informaci nesnaží skrývat, ale umožnit čtení pouze oprávněným osobám, za tímto účelem ji chrání šiframi. Šifry se tradičně dělí na substituční a transpoziční, v IT prostředí je důležité dělení na blokové a znakové. Z hlediska principu použítí pak odlišujeme asymetrickou a symetrickou kryptografii.
+% změnit na šifry
+%Odstavec
+Pravděpodobně každý je obeznámen s principem Caesarovy šifry. Jedná se o substituci každého ze 26 písmen abecedy písmenem v abecedě o dvě, čí jiný počet písmen\todo{,} dále. (Předpokládám, že po Z následuje opět A.) Nevýhody této šifry z hlediska bezpečnosti jsou naprosto zřejmé.
+
+Na opačném pólu k Caesarově šifře stojí one-time-pad, jako příklad nerozluštitelné šifry. Pro zašifrování zprávy se použije odesilateli i přijemci známá série náhodně vygenerovaných alfabatických posunů
+
+\begin{table}[h]
+\centering
+\begin{tabular}{r||c|c|c|c|c}
+%Item & Quantity \\\hline
+pad & 13 & 18 & 2 & 6 & 1\\
+zpráva & H & E & L & L & O\\\hline
+zašifrovaná zpráva & X & U & T & V & J
+\end{tabular}
+\end{table}
+
+Útočník nemá důvod preferovat jednu konfiguraci padu před jinou, prokud tedy odposlechne zprávu XUTVJ, může představovat HELLO, stejně jako (při použití jiného padu) třeba DEVEL. Útočník nemá způsob, jak se mezi těmit dvěma možnostmi rozhodnout.
+
+Proč tedy stále dochází k únikům dat, když máme neprolomitelnou šifru? Bezpečnostní analýzou a lámáním šifer se zabyvá kryptoanalýza. Kromě přímého útoku buď hrubou silou nebo s využitím objevených regularit ve struktuře šifrovacího procesů může k lámání šifry využít i postranních kanálů. Postranní kanál je informace, kterou autor šifry nevědomě poskytuje útočníkovi. Příkladem může být timing attack. Z toho, jak dlouho systému trvá zpracovat různé zprávy šifrované týmž klíčem, může kryptoanalytik usuzovat o struktuře tohoto klíče.
+
+Princip fungování lépe osvětlí následujicí příklad.
+
+\begin{lstlisting}
+procedure compare_bitstrings(bs a, bs b) {
+  if a.length != b.length
+    return false
+  for (i := 0 ; i < aa.length ; i++) {
+    if a[i] != b[i]
+      return false
+    }
+  return true;
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+procedure compare_bitstrings(bs a, bs b) {
+  if a.length != b.length
+    return false
+  same := true
+  for (i := 0 ; i < aa.length ; i++) {
+    if a[i] != b[i]
+      same = false
+  }
+  return same
+}  
+\end{lstlisting}
+
+
+Vidíme, že v případě, že se v řezce a a b neshodují, procedura 1 se bude provádět kratší dobu. A co víc, čím delší je společný prefix dvou řetězců, tím bude vykonávání delší. Procedura 2 tímto neduhem netrpí.
+
+Postranní kanál umožňující útok na one-time-pad je procedura zajišťující generování náhodných padů. Pokud by náhodná nebyla, šifru je možné prolomit analýzou velkého množství zpráv.
+
+Hlavním problémem one-time-padů je ale logistická náročnost. Odesilatel i příjemce musejí disponovat stejným one-time-padem, který je nutno držet v tajnosti. To předpokládá existenci bezpečného kanálu. Pokud už takovým kanálem disponujeme, můžeme ho použít k přenesení zprávy.
+% nedává moc smysl
+Tento fakt značně limituje realnou použitelnost systému v běžné komereční každoden\todo{n}í  komunikaci.
+
+Při nasazování systému musíme vážit mezi náklady na systém a výdají plynoucími z prolomení zabezpečení.
+%zabezpečení systému
+Jedním extrémem je žádné zabezpečení, nulové náklady, zpráva není chráněna.
+
+%\begin{table}[h]
+%\centering
+%\begin{tabularx}{\textwidth}{X|XX}
+%\begin{tabular}{l|ll}
+
+%\end{tabular}
+%\caption{\label{tab:widgets}An example table.}
+%\end{table}
+
+\hskip 3cm plus 5mm
+
+%\caption{Table caption \label{tab:table_label}}
+\begin{tabularx}{\linewidth}{XXX}
+%Item & Quantity \\\hline
+žádné zabezpečení & nulové & bez ochrany \\[0.25cm]
+one-time-pad & meximální, vybudování bezpečného kanálu & pokud odesilatel a příjemce dodrží všechna pravidla, neprolomitelný\\[0.25cm]
+šifry & dle parametrů šifry v celé škále (bez zabezpečení, one time pad) & v celé škále (bez zabezpečení, one time pad)
+\end{tabularx}
+
+\hskip 3cm plus 5mm
+
+Z přehledu vyplývá, že šifry umožňují nastavit úroveň bezpečnosti a náklady na zabezpečení v celé myslitelné škále. Parametrem bezpečnosti šifry je doba do proloméní. Pokud se nedostaneme na úroveň absolutní bezpečnosti one time padu, vždy existuje možnost, že dostatečně vytrvalý útočník šifru překoná prostým aplikováním hrubé výpočetní síly. Musíme tedy dbát na to, aby v době, kdy zpráva bude principialně rozluštěná, informace v ní už pozbyla hodnotu. Pokud si je toho útočník vědom, vidí, že o útok se nemá smysl pokoušet.
+
+\subsection*{Ochrana proti útokům postranními kanály}
+
+Dalším kritériem je kvalita implementace a způsob nasazení šifrovacího systému. Implementace by neměla být nýchilná k útokům postranními kanály. Šifra by měla být nasazena tak, aby způsobem nasazení nemohlo dojít ke kompromitování dat.
+%ehm :(
+
+Socialní inženýrství je metoda překonávání bezpečnostích opatření, která přesahuje rigorozní kryptoanalýzu a útočí na systém skrze jeho uživatele. Socialní inženýr má přístup ke všem uvedeným metodám, navíc má ještě možnost zatelefonovat uživateli a na heslo se jednoduše zeptat. Další, důmyslnější techniky infiltrace zahrnují rozmístění informačních médií slibujících zajímavé informace
+%slibujících
+(CD popsané \uv{Platy 2013, DŮVĚRNÉ}). Zvědavý zaměstnanec takové médium připojí ke svému pracovnímu počítači a tím umožní útočníkovi přístup.
+%jak?
+
+Socialní inženýrství společně s postranními útoky, narušuje jinak relativné předívadelnou krajinu počítačové bezpečnosti a v okamžiku může invalidovat naše předpoklady založené na odolnosti šifer vzhledem ke spoupající výpočetní síle. Na vzrůstající výkon počítačů můžeme plánovat. Socialní inženýr ale vždy bude o krok napřed.
+
+\end{document}
+
+% \section{Some \LaTeX{} Examples}
+% \label{sec:examples}
+% 
+% \subsection{Sections}
+% 
+% Use \texttt{section}s and \texttt{subsection}s to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use \texttt{ref} and \texttt{label} for cross-references --- this is Section~\ref{sec:examples}, for example.
+% 
+% \subsection{Tables and Figures}
+% 
+% Use \texttt{tabular} for basic tables --- see Table~\ref{tab:widgets}, for example. You can upload a figure (JPEG, PNG or PDF) using the files menu. To include it in your document, use the \texttt{includegraphics} command (see the comment below in the source code).
+% 
+% % Commands to include a figure:
+% %\begin{figure}
+% %\includegraphics[width=\textwidth]{your-figure's-file-name}
+% %\caption{\label{fig:your-figure}Caption goes here.}
+% %\end{figure}
+% 
+% 
+% 
+% \subsection{Mathematics}
+% 
+% \LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+% $$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+%       = \frac{1}{n}\sum_{i}^{n} X_i$$
+% denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+% 
+% \subsection{Lists}
+% 
+% You can make lists with automatic numbering \dots
+% 
+% 
+% \dots or bullet points \dots
+% \begin{itemize}
+% \item Like this,
+% \item and like this.
+% \end{itemize}
+
+\end{document}
