@@ -46,8 +46,9 @@
 
 %% \TODO příkaz
 %\usepackage{xcolor}
-\newcommand\todo[1]{\textcolor{red}{[[#1]]}}
- \renewcommand\todo[1]{}
+\newcommand\fixme[1]{\textcolor{red}{[[#1]]}}
+\newcommand\todo[1]{\textcolor{blue}{[[#1]]}}
+% \renewcommand\todo[1]{}
 
 \usepackage{natbib}             % sazba pouzite literatury
 %\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>}\urlstyle{tt}}  %rm/sf/tt
@@ -60,7 +61,7 @@
 \thesiswoman{false} %% Important when using Slovak or Czech lang
 \thesisfaculty{fi}  %% {fi, eco, law, sci, fsps, phil, ped, med, fss}
 \thesislang{cs}     %% {en, sk, cs}
-\thesisyear{jaro 2013}
+\thesisyear{jaro 2014}
 \thesisadvisor{RNDr. Radka Svobodová Vařeková, Ph.D.}
 
 %% Beginning of the document
@@ -84,34 +85,14 @@ Rád bych na tomto místě poděkoval absolventu Fakulty informatiky Mgr. Stanis
 Řešení bakalářské práce mi značně zjednodušila možnost provést časově náročné výpočty v programu Gaussian 2008 na počítačích zpřístupněných v rámci Národní gridové infrastruktury MetaCentrum.
 
 V neposlední řadě chci také poděkovat svým rodičům za podporu ve studiu.
-
-%Rád bych na tomto místě poděkoval přispěvatelům Národní gridové infrastruktuře MetaCentrum za poskytnutí přístupu k výpočetním prostředkům a kvantově chemickému software.
-
-%%Velice oceňuji přístup k výpočetním a diskovým kapacitám a výpočetnímu software Národní gridové infrastruktuře MetaCentrum.
-
-%%The access to computing and storage facilities owned by parties and projects contributing to the National Grid Infrastructure MetaCentrum, provided under the programme "Projects of Large Infrastructure for Research, Development, and Innovations" (LM2010005) is highly appreciated/acknowledged. Přesnost empirických metod posuzovaných v této práci jsem srovnával s výsledky ab-initio výpočtů v programu Gaussian 2008.  výpočty v kvantově chemickém programu Gaussian 2008 mi značně zjednodušila možnost provádět je na počítačích Národní gridové infrastruktury MetaCentrum, za což bych chtěl MetaCentru poděkovat. Kvantově chemického software . za poskytnutí strojového času,
 \end{ThesisThanks}
 
 %% Abstract (required)
 \begin{ThesisAbstract}
-%% ) Implementovat EEM i QEq
-%% b) K obema najit vsechny publikovane parametry (u EEM je uz mame  nalezene, je
-%% jich 18 ruznych sad)
-%% c) Otestovat na nejake rozumne velke sade molekul (napr. 1000 molekul), jak
-%% presne je EEM a QEq s jednotlivymi parametry
 
-%% Pearsonova koericientu, RMSE, prumerne odchylky 
+Parciální náboje charakterizují elektronovou strukturu molekuly jen velmi omezeně, poskytují však cenné kvalitativní informace o chemických, fyzikálních i biologických vlastnostech molekul. Pro výpočet parciálních nábojů bylo zavedeno vícero definic postihujících elektronovou strukturu molekul různým způsobem. Výpočet nábojů přímo dle definice často vyžaduje použití výpočetně náročných ab-initio metod, a proto se využívá i méně přesných empirických metod, které na základě parametrů získaných z dříve provedených ab-initio výpočtů aproximují parciální náboje s výrazně menší výpočetní náročností. Tato bakalářská práce popisuje a srovnává dvě empirické metody pro určování \todo{Mullikenových} parciálních nábojů, EEM (Electronegativity equalization method) a QEq (Charge equilibration).
 
-%% srovnání s kvantově chemicky vypočtenými náboji.
-
-%% oznamka: Muzeme pouzit i vic sad molekul - napr. polarni, nepolarni, molekuly
-%% leku, atd.
-
-%%poskytují jen velmi hrubou
-%chemici si vždy byli vědomi, že
-Parciální náboje charakterizují elektronovou strukturu molekuly jen velmi omezeně, poskytují však cenné kvalitativní informace o chemických, fyzikálních i biologických vlastnostech molekul. Pro výpočet parciálních nábojů bylo zavedeno vícero definic postihujících elektronovou strukturu molekul různým způsobem. Výpočet nábojů přímo dle definice často vyžaduje použití výpočetně náročných ab-initio metod, a proto se využívá i méně přesných empirických metod, které na základě parametrů získaných z dříve provedených ab-initio výpočtů aproximují parciální náboje s výrazně menší výpočetní náročností. Tato bakalářská práce popisuje a srovnává dvě empirické metody pro určování Mullikenových parciálních nábojů, EEM (Electronegativity equalization method) a QEq (Charge equilibration).
-
-Přínos práce spočívá v implementování solverů pro EEM i QEq pod svobodnou licencí, ve vytvoření ucelené databáze dříve publikovaných sad parametrů pro metodu QEq a ve vyhodnocení přesnosti obou studovaných metod a všech shromážděných sad parametrů na rozsáhlé testovací sadě 1000 anorganických molekul.
+Přínos práce spočívá v implementování solverů pro EEM i QEq pod svobodnou licencí, ve vytvoření ucelené databáze dříve publikovaných sad parametrů pro metodu QEq a ve vyhodnocení přesnosti obou studovaných metod a všech shromážděných sad parametrů na rozsáhlé testovací sadě \fixme{1000} organických molekul.
 
 \selectlanguage{english}
 % http://tex.stackexchange.com/questions/24066/start-new-chapter-on-same-page
@@ -162,41 +143,50 @@ Huckell partial charges, net atomic charges, Electronegativity equalization meth
 
 \selectlanguage{czech}
 
+%U diplomky se MUSÍ vejít na jednu stranu.
 \tableofcontents
 
 %% Thesis text structured using
 %% chapters, sections, subsections, etc.
 \chapter*{Úvod}
 
-%Parcialní náboje jsou velmi starý chemický koncept, který popisuje distribuci elektronové hustoty pomocí bodových nábojů lokalizovaných na jádrech atomů. dává do souvislosti některé vlastnosti molekuly jako celku a topologii jejích chemických vazeb. Pro jednotlivé atomy definujeme jejich elektronegativitu, neboli schopnost přitahovat elektrony. Naopak valenční elektrony . Atomy navázané na s vyšší elektronegativitou nabývají parcialní kladný náboj v důsledku ztráty valenčních elektronů,
+\todo{proč počítat parcialní náboje}
 
-\section{Ab initio, semiempirické a empirické metody}
+Metody ekvalizace elektronegativity
+
+V chemii existuje vícero způsobů, jak zachytit chování molekuly. Úplným popisem systému je vlnová funkce (viz xtý postulát). Od 70 let DFT, pro znalost velkého množsví měřitelných údajů není nutné znát vlnovou funkci, ale snačí znát distribuční funkci elektronové hustoty. Tu je jednodušší spočítat. Ze znalosti vlnové funkce je možno určit distribuční funci elektronové husty, ale ne naopak \todo{to je myslím Leach nebo to co cituju u toho I, II, III, ... Essentials cosi.} Ještě dalším zjednodušením proti DFT jsou parcialní náboje, které popisují elektronovou hustotu pomocí bodových nábojů umístěných v centrech atomů. Takové zjednodušení nutně vede ke ztrátě informace (existují distribuce elektronové hustoty, které není možno popsat pomocí nábojů umístěných v centrech atomů, různé distribuce elektronové hustoty mohou vést ke stejným parcialním nábojům, neexistuje shoda na metodě, jak rozdělit elektronovou hustotu k nábojům), přesto ale mohou být užitečné.
+
+Parcialní náboje jsou velmi starý chemický koncept, který popisuje distribuci elektronové hustoty v molekule pomocí bodových nábojů lokalizovaných na jádrech atomů. Parcialní náboje dovolují formulovat kvalitativní souvislosti některé vlastnosti molekuly jako celku a topologii jejích chemických vazeb. (dipólové momenty, ...) Pro jednotlivé volné atomy definujeme jejich elektronegativitu, realné číslo vyjadrující jejich schopnost přitahovat elektrony. Existuje vícero definic elektronegativity (Paulingova, experimentální měření, ...)  \todo{Naopak valenční elektrony .} Mezi parcialním nábojem a elektronegativitou existuje přímá souvislost. Samostatné atomy jsou elektricky neutální. Při utváření molekulových vazeb atomy navázané na s vyšší elektronegativitou nabývají parcialní kladný náboj v důsledku ztráty valenčních elektronů ve prospěch svého vazebného partnera.
+
+Na ekvalizaci náboje vznikla celá řada metod, 1985 EEM, 1991 QEq, SQE pro rychlý výpočet náboje, od každé z těchto metod dále existují odvozené metody. Hodnocení korelace. Parametrizují se Mullikenovy, DFT, nějaké další (ty benchmarky), úspěšnost se hodnotí std odchylkou, korelací. Parametrizují se i parametry molekul, dipolové momenty, \todo{nebylo tam někde, že mřížka je citlivá na rozmístění bodů? že se naučí mřížku a ne molekulu, resp distribuci náboje kolem molekuly, přeučení? nebo že různá mřížka, různé výsledky?}
+
+\section*{Ab initio, semiempirické a empirické metody}
 
 Latinská fráze \emph{Ab initio}, která se překládá jako „z prvotních principů“, v kontextu výpočetní chemie označuje výpočetní metody, které vycházejí z kvantové mechaniky. Jedním z postulátů kvantové mechaniky je, že vlnová funkce je úplnou charakteristikou systému. Ab initio metody fungují na principu určení vlnové funkce a z ní následně žádaných veličin. Někteří autoři do této skupiny zahrnují i metody založené na funkcionálu elektronové hustoty (DFT,  \textit{\foreignlanguage{english}{Density Functional Theory}}).
 
 DFT metody jsou co se týče principu výpočtu velmi podobné ab initio metodám. Namísto vlnové funkce se pro charakteristiku systému používá funkcionál elektronové hustoty, který sice není úplnou charakteristikou systému, pro mnohé aplikace ale plně dostačuje, a navíc je jeho výpočet realizovatelný i pro velké biomolekuly, pro které by určení plné vlnové funkce trvalo příliš dlouho.
 
-Semiempirické metody jsou modifikací ab initio metod takovou, že tam, kde to výrazně přispěje ke zrychlení výpočtu, se i za cenu nižší přesnosti použije předem určených parametrů, které mohou být zjištěny i experimentálně.
+Semiempirické metody jsou modifikací ab initio metod takovou, že tam, kde to výrazně přispěje ke zrychlení výpočtu, se za cenu nižší přesnosti použije předem určených parametrů, které mohou být zjištěny i experimentálně.
 
 Empirické metody staví na jiných teoretických základech, než je kvantová mechanika. Příkladem může být molekulová mechanika, technika pro určování konformace a dalších parametrů molekul ze zjednodušeného modelu molekuly, který je založený na zákonech klasické fyziky (chemická vazba se například reprezentuje jako pružina). Využívání experimentálních parametrů je u empirických metod téměř pravidlem.
 
 Jedno z kritérií kvality semiempirických a empirických metod se nazývá přenositelnost parametrů. V praxi se ukazuje, že v rámci jednotlivých tříd strukturně podobných molekul bývají empirické parametry pro jednotlivé molekuly velmi podobné, a proto je možné stejnou parametrizaci použít pro výpočty nad všemi molekulami dané třídy. Čím je míra přenositelnosti parametrů vyšší, neboli čím širší škálu molekul můžeme dostatečně přesně popsat s použitím jedné parametrizace, tím lépe vyhodnocovaný model generalizuje realitu.
 
-%Klasickou Newtonovskou mechaniku je možno označit za empirickou teorii. Gravitační konstanta je empirický parametr. Relativistická fyzika tuto konstantu vypočítat.
+%Klasickou Newtonovskou mechaniku je možno označit za empirickou teorii. Gravitační konstanta je empirický parametr. Relativistická fyzika: tuto konstantu vypočítat.
 
 
 %An alternative measure of the charge distribution involves a partitioning into partial atomic charges. While such partitioning is always arbitrary (see Chapter 9) simple methods tend to
 
 %Valence orbitals, on the other hand, can vary widely as a function of chemical bonding. Atoms bonded to significantly more electronegative elements take on partial positive charge from loss of valence electrons, and thus their remaining density is distributed more compactly. The reverse is true when the bonding is to a more electropositive element. From a chemical
 
-\todo{proč počítat parcialní náboje}
-
 %Highly charged regions of molecule are the most reactive locations
 %Charges = clue to reactivity
 %Charges provide a very useful information about a molecule
 %Charges provide a deep insight into a chemical behaviour of a molecule
-%Charges are excellent descriptors in QSPR and are necessary in simulations = molekulová mechanika
 
+
+\todo{vyuziti naboju k fitovani vlastnosti}
+%Charges are excellent descriptors in QSPR and are necessary in simulations = molekulová mechanika
 %predikce fyzických, chemických a biologických vlastnosti
 % a jsou parametrem vstupem mnoha výpočetních modelů na předpovídání
 
@@ -212,7 +202,7 @@ Jedno z kritérií kvality semiempirických a empirických metod se nazývá př
 
 \todo{polarita molekul}
 
-\todo{vyuziti naboju k fitovani vlastnosti}
+
 
 \todo{dipolove momenty, ...}
 
@@ -224,9 +214,7 @@ Jedno z kritérií kvality semiempirických a empirických metod se nazývá př
 
 %Rozložení elektronové hustoty v molekule je pozorovatelná veličina. Existuje pro ně kvantový operátor a možno pozorovat například pomocí Roentgenové krystalografie. je možno měřit, přiřazení elektronů k atomům je pouze zjednodušující popis realné distribuce elektronové hustoty.
 
-%There is no experimental method for obtaining of charges
-
-%$$E=\frac{q_1 q_2}{\epsilon r_{1,2}}$$
+%There is no experimental method for obtaining charges
 
 %Parcialní náboje ne
 
@@ -246,13 +234,21 @@ Parcialní náboje je možno používat i kvantitativně, například jako jeden
 
 Kritériem správnosti kvantitativních výstupů jsou užitečnost a obecnost výpočetní metody. Užitečností se myslí existence experimentu, s nímž výpočetní metoda vykazuje dobrou, jinými slovy, který dobře modeluje. Obecnost je parametrem u empirických metod a jedná se primárně o míru přenositelnosti parametrů.
 
-\subsection{Metody výpočtu}
+Ekvalizace elektronegativity
+
+Elektronegatita je realné číslo obvykle v rozsahu \todo{rozsah} Je možno chápat jako schopnost přitahovat elektrony. Při pohledu na periodickou tabulku platí, že při pohybu směrem doprava a nahoru elektonegativita roste. Existuje mnoho schémat pro výpočet elektronegativity. Elektronegativita se definuje pro volné atomy.
+
+
+
+Vznik molekuly spočívá ve sdílení elektronů mezi vícero atomy. Ustavení molekuly můžeme chápat jako ustavení rovnovážného stavu v uspořádání elektronového oblaku. Pokud by se elektonegativita zvoleného atomu zvýšíla, bude více obklopen elektrony, což jeho elektronegativitu opět sníží.
+
+\section{Metody výpočtu}
 
 Metody pro výpočet nábojů se dají rozdělit do čtyř kategorií. \citep[s.~50]{cramer2004essentials}
 
 Třída I představuje empirické metody, které vycházejí nikoli z kvantové mechaniky, ale jsou založeny na fyzikálních analogiích a intuici tvůrců. Tyto metody mohou využívat experimentálních dat, jako jsou dipólové momenty nebo elektronegativity.
 
-\todo{definice elektonové hustoty a vzorec}
+\todo{definice elektonové hustoty a vzorec?}
 
 Třídy II a III zahrnují metody, které vycházejí buď přímo z vlnové funkce (třída II), nebo z pozorovatelné veličiny z vlnové funkce vypočtené (třída III), například z elektronové hustoty, a na základě intuitivně zvoleného schématu ji rozdělí na příspěvky od jednotlivých atomů.
 
@@ -269,7 +265,480 @@ V praxi se nejčastěji používají hodnoty parcialních nábojů získané met
 
 %Molekuly léčiv
 
-%Metoda 
+
+Metody equilibrace náboje jsou motivovány vyjádřením potencialní energie atomu v závislosti na náboji a minimalizováním potencialní energie za podmínky známé hodnoty celkového náboje molekuly.
+
+Elektronegativitu můžeme chápat ionizačního potencálu a elektronové afinity izolovaných atomů, nebo jako další parametry.
+
+\section{Electronegativity Equalization Method (EEM)}
+
+Metoda EEM vychází ze tří podmínek. První podmínkou . Druhá podmínka, která dala metodě její jméno, je ekvalizace elektronegativity, a třetí podmínkou je zachování celkového náboje molekuly. První podmínka popisuje závislost potencialní energie molekuly na parcialních nábojích, na vzdálenosti atomů, jejich elektronegativitě \todo{a}. Za předpokladu, že studovaná molekula je v rovnovážném stavu můžeme usoudit, že se nachází ve stavu s nejnižší potencialní energií. Víme tedy, že deriace výrazu pro energii musí být nulová. Tímto krokem jsme odstranili energii jako neznámou a z tohoto vzdahu si můžeme vyjádřit efektivní elektronegativitu každého z N atomů v molekule jako funkci jeho náboje. Druhá podmínka nám umožňuje vytvořit N-1 rovnic porovnávajících elektronegativitu. Třetí podmínka poskytuje poslední, N-tou, rovnici, kterou potřebujeme. \todo{jenomže rovnic je n+1}.
+
+Nejenom z hlediska úspornosti zápisu, ale také pro pozdější počítačové řešení je vhodné tuto soustavu rovnic zapsat maticovým schématem
+
+Ax=b, kde x je vektor neznámých.
+
+Pro použití EEM potřebujeme znát prostorové uspořádání atomů v molekule, parametry a pro každý atom a konstantu kapa.
+
+Potencialní energie
+
+Můžeme značit E, neboť jiná než potencialní energie v tomto odvození nevystupuje nebo V (jak je obvyklé v kvantové mechanice)
+
+$$E=\frac{q_1 q_2}{\epsilon r_{1,2}}$$
+
+
+\section{Charge Equilibration (QEq)}
+
+Stejně jako u metody EEM vycházíme z výrazu pro potencialní energii. Autoří QEq ve svém odvození nezabývají tím, jak tento vztah vypadá, ale 
+
+že dE/dq
+
+pro molekulu potom
+
+
+Použítím vztahu pro ekvalizaci elektronegatity, což je 
+
+Coulumbův zákon neplatí pro velmi malé vzálenosti, kdy už nelze atomy realisticky aproximovat jako bodové náboje. Proto  $q_1 q_2 J_{1,2}$, J je coulombovský integrál. Pro velké hodnoty R J = 1/R což je Coulumbův zákon a pro malé hodnoty se používá překryvový integrál pro Slaterovy orbitaly Jij = .
+
+
+
+\section{Split Charge equilibration (SQE)}
+
+Tato sekce začíná popisem split charges a následně popisuje odvození modelu SQE způsobem v originálním článku
+
+Definice split charge
+
+\todo{Split charge byl zaveden v metodě AACT.}
+
+Náboj atomu vyjádříme jako jeho vlastní náboj a přesunutý náboj z jeho sousedů po kovalentních vazbách (\todo{v učebnici chemie na to je možná nějaká terminologie}) součet "dělených" nábojů na v Split charge.
+
+\[Q_i = \sum_j overbar qij\]
+
+Odvození metody Split Charge equilibration
+
+V původním článku vycházejí z ekvilibrace náboje, na čež zavedou split charges podle definice nahoře, napíší původní vstah z jejich pomocí, v dalším kroku zavedou nové proměnné a ukáží, že při zavedení dalších tří podmínek je jejich konstrukce ekvivalentní s ekvilibrací náboje. Při přidání jiných podmínek přechází v metodu AACT. Tak je ukázáno, že metoda SQE (kde se dodatečné podmínky nevyskytují) je zobecněním obou těchto metod.
+
+Princip ekvilibrace náboje, ekvivalentně ekvilibrace elektronegativity
+
+\todo{proč je tady náboj to samý co chemický potenciál?, molární g energie?}
+
+\chapter{Předchozí implementace}
+
+\chapter{Implementace}
+
+\section{Electronegativity equalization method}
+
+
+
+\section{Charge equilibration}
+
+\chapter{Použité sady molekul}
+
+DTP NCI Developmental Therapeutics Program
+
+%\url{http://dtp.nci.nih.gov/docs/3d_database/dis3d.html}
+
+Milne, G.W.A., Nicklaus, M.C., Driscoll, J.S., Wang, S. and Zaharevitz. D. The NCI Drug Information System 3D Database. J. Chem. Inf. Comput. Sci. 34:1219-1224 (1994).
+
+%http://cactus.nci.nih.gov/download/nci/
+
+BLAS (Basic Linear Algebra Subprograms) je API specifikující často používané operace linearní algebry nad vektory a maticemi. Pro přehlednost je knihovna rozdělena na tři části. BLAS Level 1 Blas Level 2 a Blas Level 3 obsahuje procedury pro operace mezi dvěma maticemi. Nad primitivy obsažené v BLAS je postaven LAPACK (Linear Algebra PACKage). První implementace v jazyce FORTRAN77 Pro obě rozhraní existuje celá řada implementací, výrobci počítačových procesorů často dodávají vlastní implementace, ATLAS obsahuje benchmark, který automaticky volí nejlepší implementace pro hardware. Obsahují významnou součást benchmarků pro HPC.
+
+Jména procedur reflektují datový typ (s, single precision, float32, d, double precision, float64)
+
+
+
+Předchozí implementace
+
+EEM
+
+Programy implementující parametrizaci musejí implementovat i řešení EEM systému.
+
+práce na MU
+
+včetně parametrizace
+
+Tomáš Raček ve své diplomové práci implementoval program NEEMP ()
+
+Bakalářská práce Jakuba Vaňka prezentuje nástroj EMP (EEM Method Parametrization). EMP 
+
+Poslední nástroj nazvaný TRON vytvořil Tomáš Raděj.
+
+Řešení EEM systému
+
+TRON a EMP používají vlastní implementaci Gaussovy eliminace s pivotováním, NEEMP používá \todo{ale co je to za konkrétní operace} procedury ssysv, sgesv a sspsv  z knihovny Intel Math Kernel Library.
+
+Parametrizace
+
+Tron používá exhaustivní prohledávání intervalu kappa, NEEMP vychází se stejného přístupu, s tím, že v první fázi prostupně projde interval kappa řídčeji s experimentálně určenou konstatnou a následně takto experimentálně zjištěnou závislost lokálně aproximuje parabolami a snaží se cíleně prozkoumávat lokální maxima je postavený na Brentově metodě využívá GNU Scientific Library. \todo{ten NEEMP je asi/možná spatně popsané}
+
+EMP a NEEMP vyřazují některé molekuly z učící sady, což vede k vylepšení výsledné korelace na celé sadě.
+
+Programovací jazyk. TRON je napsán v jazyce Java, NEEMP v jazyce C.
+
+Licence. K programu TRON jsou dostupné zdrojové kódy.
+
+Paralelní provádění
+
+Tron a \todo{EMP} pracují seriově. NEEMP používá OpenMP a matematická knihovna interně používá OpenMP a \todo{SIMD} Míru paralelizmu je možno volit.
+
+NEEMP dospěl k závěru, že paralelní výpočet matice není vhodný a paralelizmus co se týče výpočtů pro ruzné hodnoty lambda
+
+bez parametrizace
+
+Radka Svobodová Vařeková 
+
+další sw
+
+openbabel
+
+QEQ
+
+openbabel
+qtpie
+Materials Studio
+GULP
+
+
+
+SQE
+
+vše možné
+qfit, cit verstraelen2011significance , není dostupný
+
+Hypotéza
+
+Metoda nejmenších čtverců je známá tím, že malé množství odlehlých bodů může značně ovlivnit výsledek. Je tedy možné, že v učící sadě se nacházejí molekuly, které dají vzniknout odlehlým bodům v příslušném kroku parametrizace. Tyto molekuly mohou být buď neobvyklé z hlediska distribuce náboje a námi používaný model není schopen správně postihnout jak tyto body, tak většinu molekul. Vynecháním ze sady dovolíme modelu správně se naparametrizovat na většinu, což vede k lepší korelaci, než pokus parametrizovat vše, ale nic správně. Další možnost je, že topologie těchto molekul je v databázi zadána chybně. Dále je možné, že data jsou jinak poškozená. Chybějící atomy a tak podobně. Metoda EEM je odvozena pro molekuly v globálním minimu nebo blízko něj \todo{je to pravda?}. Není možné vyloučit ani kombinaci všech zmíněných možností.
+
+Metoda
+
+Hypotézu o chybných vstupních datech je možno ověřit pomocí optimalizace vstupních molekul. Pokud se optimalizovaná konfigurace liší od vstupní, znamená to, že molekula byla zadána chybně. Optimalizace je iterativní proces. Pro urychlení této operace stačí provést pouze první iteraci optimalizačního procesu, což odhalí, zda byla molekula v lokálním minumu nebo ne.
+
+Všechny hypotézy je možno otestovat manualní inspekcí vyřazených molekul.
+
+Možnosti paralelizace
+
+Můžeme úlohu rozdělit na na sobě nezávislé úkoly. Nyní se naskýtají dvě možnosti. Buď implementovat paralelizmus na úrovni úkolů a provádět jich souběžně více, nebo paralelizovat provádění každého úkolu zvlášť. Pokud zvolíme druhou možnost, budeme na vyřešení prvního úkolu čekat kratší dobu, ovšem vyřešení všech úkolů bude trvat déle, což je důsledek Amdalova zákona. První možnost nabízí lepší efektivitu využívání zdrojů. První možnost nemůžeme zvolit, pokud se větší množství úloh nevejde souběžně do paměti.
+
+Vlákna a procesy
+
+Na úrovni operačního systému. Rozdíl mezi vláknem a procesem je, že vlákna sdílejí paměť, vytvoření vlákna je rychlejší.
+
+False sharing.
+
+SIMD (Single Instruction Multiple Data)
+
+Moderní procesory mají ve své instrukční sadě instrukce, které jsou schopné provádět operace nad více než jednou hodnotou najednou. Nevýhodou SIMD je nutnost tyto vektorové instrukce v programu používat explicitně. Existují kompilátory, které dovedou vektorizovat kód automaticky. Často je jim potřeba pomoci, blocking. Data musí být v paměti zarovnána.
+
+SIMT (Single Instruction Multiple Thread)
+
+Model programování grafických karet. Warp sestává z 32 vláken provádějících tu stejnou instrukci nad různými daty. Je zapotřebí mezi vlákny vhodným způsobem přistupovat k paměti. V případě, že dojde k divergenci, umí procesor vlákna automaticky maskovat.
+
+Partition campling.
+
+Přepínání vláken je implementováno v HW, je tedy mnohem rychlejší než na CPU, kde tuto operaci řídí plánovač OS.
+
+Konflikty paměťových bank.
+
+Utilization.
+
+Obecně je možno říct, že CPU je vhodné pro úlohy kde je hodně komunikace.
+
+Posix threads Pthreads
+
+OpenMP
+
+SMP, podporuje i SIMD. V programu se používá pomocí specialních \#pragma direktiv pro kompilátor. Při překladu je nutno zapnout podporu.
+
+MPI
+
+MPI je API pro zasílání zpráv mezi jinak nezávisle na sobě běžícími procesy, které mohou, ale nemusejí sdílet paměťový prostor. Podle toho, v jaké konfiguraci tyto procesy běží, může zasílání zprávy obnášet buď kopírování paměti v rámci počítače, nebo i síťovou komunikaci mezi počítači, a to skrze rozličná sítová rozhraní (iso xxx Ethernet, Infiniband). OpenMPI je vhodné pro použítí v asymetickém multiprocesingu, kdy je smysluplné rozlišovat mezi lokální, rychlou pamětí, a vzdálenou, pomalou pamětí. Právě přístup ke vzdálené paměti je řešen mechanizmem zasílání zpráv. V případě běhu na jednom počítači má smysl rozlišovat mezi lokální a vzdálenou pamětí u architektur NUMA (Nonuniform Memory Access), která rozděluje paměťový prostor mezi jednotlivé procesory a přístup k paměti příslušející jinému procesoru je pomalejší. Důvodem pro zavedení architektury NUMA jsou výsoké nároky na architekturu cache, které klade dřívě používané SMP.
+
+The Intel® Trace Analyzer and Collector has a long-standing reputation as a profiler that helps you understand MPI application behavior, and effectively visualize bottlenecks in your code. 
+
+Jedná se o běžnou knihovnu v jazyce C. Při překladu stačí přidat parametr pro linker.
+
+Ve verzi 2 není možné za běhu přidávat a odebírat počítače.
+
+Intel Thread Building Blocks
+
+Intel Cilk Plus
+
+% Should I expect Intel Cilk Plus to outperform TBB, OpenMP and MPI?
+% 
+% Intel Cilk Plus offers a competitive alternative for parallel programming that is far easier to use than MPI. It is intended to complement TBB and OpenMP, enabling programmers to parallelize applications that may be too complex or cumbersome to fit into one of these frameworks. Cilk Plus is not intended to be a replacement for these platforms, however. In general, one should not expect to see performance improvements by convert an existing parallel code in TBB or OpenMP to Cilk Plus. TBB, OpenMP and MPI continue to be good choices for writing High Performance Computing applications.
+% 
+% Intel Cilk Plus is designed to be a unique, general-purpose solution which provides good scalability for multi-core programs across a variety of applications and machines, and which allows programmers to exploit both data and task parallelism in their program in a straightforward, maintainable manner. The tradeoff is that Cilk Plus may not be as finely tuned for specific programming patterns or environments as TBB or OpenMP.
+% 
+% In general, each of the parallel programming frameworks has their own strengths and weaknesses. Which framework offers the best performance depends on both on the kind of application and how much the code has been tuned for a particular platform. One should not expect naïve conversions of tuned code from one platform to another to necessarily be comparable in performance, since each platform has its own unique tuning methodology and preferred programming style.
+
+
+
+GPGPU
+
+Využití grafických (geometry processing unit) k provádění obecných výpočtů. Fixed function pipeline a s cílem umožnit grafickým programátorům flexibilnější a zprístupnit vnitřní fungování karty. Nejprve probíhalo vytvářením specialních vertex a fragment shaderů, které pro určitá vstupní data generovaly obrázek, který bylo možno opět relativně snadno transformovat ve výsledek výpočtu. V reakci na tyto akademické snahy začali výrobci grafických karet pracovat na aplikačních rozhraních zpecialně pro GPGPU.
+
+pozn pod čarou houghova (čti háfova) transformace fit, nalezení instancí parametrizovaného modelu v datech, známá zejména pro použítí ve zpracování obrazu k detenci přímek nebo kružnic.
+
+CUDA
+
+Cuda je výpočetní API vytvořené firmou Nvidia
+
+OpenCL
+
+Apple.
+
+Kernely se kompilují ze zdrojového kódu až při spuštění programu na cílovém hardware. Z tohoto důvodu je nutné s programem distribuovat i zdrojové kódy a může dojít k úniku duševního vlastnictví tvůrce programu. Podobným problémem trpí i grafická knihovna OpenGL. Cuda i DirectX distribuují kernely zkompilované do platformně nezávislého mezikódu.
+
+Cude nabízí dvě různá API. První, určené začátečníkům a pro situace, kde není nutné . Kernely se píší do stejných souborů, jako kód aplikace a na první pohled vypadají jako běžné funkce v jazyce C++. Ať už programátor použije libovolné API, nemusí řešit kompilaci, neboť tu obstará k tomu určený frontend nvcc, který rozdělí kódy kernelů a kód aplikace, a na každé zavolá příslušný kompilátor. OpenCL API je více nízkoúrovňové a nutí programátora zabývat se větším množstvím detailů, i když tuto flexibilitu nepotřebuje. Kompilace kernelů je manualní proces, programátor musí 
+
+Překážkou při využívání dedikovaného hardware často je problém relativné nízké rychlosti sběrnice mezi tímto zařízením a operační pamětí počítače. je nutné, aby se na dedikovaném hardware vykonalo alespoň takové množství práce, které by ospravedlňilo časové náklady nuté k překopírování dat na grafickou kartu a následně výsledku zpět do hlavní paměti.
+
+Výhodou OpenCL je, že existují implementace pro CPU i další specifický hardware jako jako FPGI (Field Programable, programovatelná hradlová pole). Kompilátor umí namapovat OpenCL kernel na grafické karty, paralelní architektury v procesorech (vícero procesorů v počítači, vícero jader v procesoru, SIMD) i FPGA (softwarem definovaný logický obvod). Díky tomu je možné jeden program spouštět na celé řadě zařízení. Heterogeneous computing.
+
+Funkce přibývají pomaleji, tuning je stejně potřeba provádět pro každý hw zvlášť. Extenze. [to je ze slajdů]
+
+https://aur.archlinux.org/packages/beignet/ intelí runtime pro grafiky na linux
+
+--%v linuxu je nějaké Clover a Gallium3D \url{http://www.phoronix.com/scan.php?page=news_item&px=MTM1MzM}
+
+%http://portablecl.org/
+
+%https://fedoraproject.org/wiki/Changes/OpenCL
+
+clpeak, Find peak OpenCL capacities like bandwidth \& compute 
+
+AMD změnila architekturu grafických karet, bylo wliw
+
+Nvidia, AMD (GPU i CPU), Intel, (FPGA) a další. Existují experimentální implementace WebCL pro prohlížeče Chrome, Firefox a dedikované javascriptové běhové prostředí NodeJS.
+
+Z pohledu aplikace prezentuje OpenCL hierarchii objektů. Na nejvyšší úrovni je platforma. Pod každou platformou se může nacházet jedno nebo více zařízení. Aplikace může na jednom nebo několika zařízeních patřících do stejné platformy vytvořit kontext. 
+
+Zařízení
+work-group, work item
+global memory
+local memory
+
+CUDA
+global memory | global memory
+local memory | shared memory
+|registers
+
+work group
+work item
+preferred *** size | warp
+
+Globální paměť se nachází na výpočetním zařízení a před započetím výpočtu je nutné do ní překopírovat vstup a po skončení výpočtu naopak zpět překopírovat výstup. Mezi operační pamětí počítače a grafickou kartou se nachází sběrnice PCI-E, která je schopna přenášet 4 GB/s, řádově 200 
+
+posuzování výkonu: occupancy, poměr maximální výpočetní a přenosové kapacity vůči využívané výpočetní a přenosové kapacitě, srovnání s dříve dosaženými výsledky v literatuře, profilery umožňují změřit occupancy
+
+Renderscript
+
+Jedná se o API nad CPU a GPU v operačním systému Android
+
+Precision Memory Leak Detection Using the New On-Demand Leak Detection in Intel® Inspector XE
+
+WebCL
+
+Implementace OpenCL API v javascriptu, Nokia (Firefox), , Motorola Mobility (NodeJS) experimentální implementace.
+
+existují OpenCl knihovny pro Python, ...
+
+C++ , DirectX11compute
+
+Rozšíření C++ které umožňuje programovat pro DirectX11 Compute v jazyce C++.
+
+Communicating sequential programs (CSP)
+
+Autorem paradigmatu CSP je Hoare. Podstatou CSP je strukturovat program jako vícero nezávislých procesů, které spolu komunikují pomocí zasílání zpráv přes kanály. Na rozdíl od modelu aktorů nemají tyto procesy oddělený paměťový prostor. Programování v tomto modelu je založeno na dodržování konvencí. Pokud program odešle referenci na měnitelný objekt pomocí kanálu jinému proceu, nesmí dotyčný objekt už sám nikterak měnit nebo číst. V situacích, kdy mechanizmus zpráv a kanálů nestačí, je možné využít klasícké programovací přístupy pomocí zámků a dalších primitiv. "Share memory by communication. Don't communicate by sharing memory." V jazyce C++ je tento přístup podporován pomocí knihoven. Programovací jazyk Go obsahuje CSP konstrukce přímo jako klíčová slova. Mezi C++ a Go existují možnosti pro interoperabilitu a je tudíž myslitelné vytvořit jádro aplikace v C++ a následně je spouštět paralelně z programu v jazyce Go.
+
+Zvolené řešení
+
+OpenCL + MPI, přímo i prostřednictvím knihoven, OpenMP pro plnění matic a výpočet párových vzdáleností.
+
+Hvězda, jeden počítač čte vstup, plní matice a posílá...
+
+\fixme{Ehm, paralelizace je vhodnější pro případnou parametrizaci, takže spíš nachystat to do stavu, aby se k tomu dala doprogramovat paralelní parametrizace}
+
+Pro řešený problém je význačný následujícími dvěma aspekty. Za prvé řešení soustav linearních rovnic, které je ale z hlediska řešeného problému implementační detail a pro jeho řešení je zapotřebí znalostí numerické matematiky, který je nejlépe nechat knihovnám. Řešení soustavy linearních rovnic se MPI nehodí, jelikož se jedná o příliš malý problém a zasílání zpráv má příliš velkou režii, mohl by být ale užitečný z hlediska rozděnení zátěže mezi více počítačů.
+
+Relativné časté je kombinování výpočtů na grafické kartě s OpenMPI, což umožňuje využít současně grafické karty na vícero počítačích.
+
+Knihovna ViennaCL nabízí backendy pro OpenMP, OpenCL i Cuda. Navíc umí interoperabilitu s knihovnou Eigen, kterou jsem si vybral hned na začátku.
+
+OpenMP využíváno jen jako k využívání vícero grafických karet na jednom systému. https://www.wiki.ed.ac.uk/display/ecdfwiki/Use+multiple+GPU+devices+with+OpenMP+and+CUDA streamy, to advanced api.
+
+Přepínače kompilátoru
+
+kompilátory mají celou řadu přepínačů, které ovlivňují rychlost výsledného kódu. Všechny přepínače nejsou dostupné u všech kompilátorů.
+
+ffast-math
+
+vypíná kompatibilitu s IEEE755 či co. Kompilátor například (a * a * a * a) je vyhodnocováné jako (((a * a) * a) *a), tři násobení, s přepínačem je možno optimalizovat jako (a*a) * (a*a), dvě násobení. Citace?
+
+-O1,O2, O3, Os
+
+harden source
+
+https://security.stackexchange.com/questions/24444/what-is-the-most-hardened-set-of-options-for-gcc-compiling-c-c
+-fstack-protector-all -Wstack-protector --param ssp-buffer-size=4 
+%-­D_FORTIFY_SOURCE=2 ­O2
+
+Nástroje pro OpenCL
+
+AMD
+
+http://developer.amd.com/tools-and-sdks/heterogeneous-computing/codexl/
+debugger, profiler a statický analyzátor pro OpenCL kernely
+
+knihovny clMath (FFT a Blas), clMAGMA (umí i least squares)
+Bolt, abstrakce nad OpenCL a C++ AMP
+
+Hardware
+
+Lenovo Thinkpad E530 (X86\_64)
+mobil! tablet! ARM
+MetaCentrum
+Aisa
+
+Software
+
+Kompatibilitu programu jsem ověříl překladem na třech různých na sobě nezávisle vyvíjených překladačích
+
+g++ GCC Gnu Compiler Collection
+Clang
+icpc, kompilátor vyvíjený firmou Intel, verze pro Linux je k dispozici zdarma k nekomerčnímu využití.
+android ndk
+https://pm.bsc.es/projects/mcxx mercuium source to source
+
+KDevelop
+
+dovození typu (type inference), což umožňuje používat konstrukci auto. Další vývojová prostředí, která by splňovala moje požadavky QTCreator, Microsoft Visual Studio, Eclipse.
+
+OpenBabel
+
+Boost program options
+
+Eigen3
+\todo{kopírování, přímý BLAS dovoluje provádět více operací inplace?}
+
+ViennaCL
+
+Knihovna tvoří nádstavbu nad  a navíc obsahuje vlastní implementované jako OpenCL kernely. Mezi těmito třemi implementacemi je možno přepínat.
+
+Metoda nejmenších čtverců
+
+predikční chyba a ta druhá, čtverce nebo průměty
+
+Matrix computations Least square methods
+
+je možno velmi kompaktně vyjádřit maticovým zápisem jako 
+
+C = A + * b
+
+kde A+ značí Moore-penrosova pseudoinverze matice A.
+
+V případě, že na rychlosti nezáleží (při interaktivním počítání v Matlabu) je vhodné použít SVD dekompozici. Neklade žádné specialní požadavky na vstupní matici a je velmi přesná.
+
+@misc{Sestrienková2013thesis,
+AUTHOR = "SESTRIENKOVÁ, Simona",
+TITLE = "Mooreova-Penrosova pseudoinverze, iterační algoritmy pro výpočet [online]",
+YEAR = "2013 [cit. 2014-04-28]",
+TYPE = "Bakalářská práce", 
+SCHOOL = "Masarykova univerzita, Přírodovědecká fakulta",
+SUPERVISOR = "Jiří Zelinka", 
+%URL = "Dostupné z WWW <http://is.muni.cz/th/379436/prif_b/>",
+}
+
+http://vene.ro/blog/inverses-pseudoinverses-numerical-issues-speed-symmetry.html
+\(\operatorname{arg\,min}_x ||b - Ax||\)
+
+Je možno jednoduše odvodit, pokud vyjdeme z rovnice přímky y = ax+b, vyjádříme hodnotu b-Ax jako funkci v proměnných a,b a tuto kvadratickou funkci minimalizujeme nalezením derivace.
+
+dovoluje přesunout problém výpočtu na zvolenou matematickou knihovnu. Tomáš Ráček ve své diplomové práci setkal s problémem nedostačujícího řádového rozsahu typu float32 při přímé implementaci vzorce (). Sumace kdy dochází k příčítání relativně velkého součtu v akumulátoru k v porovnání s ní malé hodnotě jednotlivých prvků vektoru.
+
+Pseudoinverze
+
+SVD, QR
+
+% Linear Least Squares Problem
+% classes.soe.ucsc.edu/cmps290c/Spring04/paps/lls.pdf‎
+% ... among the three. On the other hand SVD is the slowest and most accurate. ... QR factorization transform the linear least square problem into a triangular least ...
+% 
+% PDF]
+% NUMERICALLY EFFICIENT METHODS FOR SOLVING ...
+% math.uchicago.edu/~may/REU2012/REUPapers/Lee.pdf‎
+% by LEE DO Q - ‎2012 - ‎Related articles
+% Aug 24, 2012 - The QR Factorization in Least Squares Problems. 10. 5.4. ... Singular Value Decomposition (SVD) and its robustness in solving rank-deficient.
+% 
+% [PDF]
+% Lecture 9 - Least Squares, QR and SVD - University of ...
+% https://wiki.engr.illinois.edu/download/attachments/.../lecture09.pdf?...‎
+% Mar 15, 2011 - Lecture 9. Least Squares, QR and SVD. T. Gambill. Department of Computer Science. University of Illinois at Urbana-Champaign. March 15 ...
+% 
+% Eigen: Solving linear least squares systems
+% eigen.tuxfamily.org/dox-devel/group__LeastSquares.html‎
+% This page describes how to solve linear least squares systems using Eigen. ... page are the SVD decomposition, the QR decomposition and normal equations.
+% 
+% [PDF]
+% Linear Algebra, part 3 QR and SVD Going back to least ...
+% www.csc.kth.se/utbildning/kth/kurser/DN2266/matmod12/LA3_2p.pdf‎
+% Linear Algebra, part 3. QR and SVD. Anna-Karin Tornberg. Mathematical Models, Analysis and Simulation. Fall semester, 2012. Going back to least squares.
+
+formát souboru s parametry
+
+na základě formátů používaných ostatními programy
+
+řádkový
+oddělovač řádku může být cokoli běžně používané
+
+\fixme{řádek #! jména sloupců, more trouble than it's worth}
+řádky začínající # jsou komentáře \fixme{dovolit koment na konci řádku?}
+
+není možné vynechat hodnotu ve sloupci
+pořadí sloupců je dané výpočetní metodou
+oddělovačem je mezera a tabulátor (nebo unicode whitespace)
+
+je shopno postihnout i vstup pro SQF, kde je nutno zadávat i parametry pro vazby
+
+klíč hodnota hodnota hodnota ...
+
+stejný klíč není dovoleno uvést vicekrát
+
+parametr pro zvalidování vstupu
+
+
+\chapter{Parametrizace}
+
+EEM: pro fixní kappa najdeme další parametry metodou nejmenších čtverců. Programy TRON, EMP a * používají tuto metodu.
+
+QEq: Program v článku kadantsev2013fast používá kombinaci globální a lokální optimalizace, konkrétně vlastní genetický algoritmus následovaný gradientní metodou (podle informací v dodatku se jednalo o steepest descent) pro doladění parametrů. Optimalizují se pouze parametry elektronegativita a tvrdost, ostatní zůstávají konstantní.
+
+\chapter{Vyhodnocení}
+
+Existuje rozpor ohledně toho, co se od metod jako EEM a QEq učekává. Jako chemická teorie, parametry vypovídají o chemických vlastnostech zkoumaných systémů, nebo regresní/metoda strojového učení, která vytváří a výstup slouží pro další regresní modely předpovídající chemické vlastnosti. Ve druhém případě se nezajímáme o chemický význam parametrů, ale o kvalitu predikcí.
+
+V této práci hodnotím metody z hlediska jejich schopnosti reprodukovat QM výpočet. Výsledné náboje pro použití do regresního modelu, tedy nezáleží ani tak na absolutní shodě, jako spíš na korelaci. (Relativní posun se regrasní model může naučit kompenzovat).
+
+Databáze
+
+Mnohé informatické vědní obory mají tradici zkoušení metod na de facto standardních sadách testovacích dat.
+
+\todo{SQE článek má sadu molekul.}
+
+Je výhodné testovat různé pokusy o řešení problému na těch stejných datech.
+
+Referencni databaze jsou dulezite z nasledujicich duvodu, poskytuji moznost srovnat tuzne implementace otestovane ruznymi lidmi, je na nich mozne sledovat vyvoj a zlepsovani metod v prubehu casu. Dobra referencni databaze by mela byt snadno dostupna, dostatecne variablilni, pripadne se zamerovat na zvlaste slozite instance, ale nesmi opomenout ani ty bezne
+
+Databaze se muze delit na ucici a testovaci data, pripadne si toto rozdeleni provede az pri testovani algortmu jako proccentualni cast, nebo pomoci foldu a podobne.
+
+Physionet, street nnumbers, computer vision competitions, machine learning ma nektere notoricky zname, east west train,
+
+Nevýhodou je že postupem času autoři se mohou začít soustředit na vylepšení výkonu na testovacích sadách, namísto reality. Znají svoji sadu velmi dobře po letech práce a dělají věci, které přinesou pokrok jen pro řešení sady, ne pro praktickou aplikaci. Problém přeučení.
+
+U modelu muzeme preferovat vypocetni jednoduchost, coz je pripad chemoinformmatiky, kde boovykle ypracovavame velke mnozstvi molekul a je vyhodne co nejvice kandidatu co nejrzchleji zamitnout a soustredit se jen na tz perspektivni. V pocitacovem videni je zadouci bzt schopen zpracovavat data v realnem case, tj 30 az v nekterzch aplikacich 120 i vice snimku za sekundu. Klasifikator vztvorenz pomoci boosting jednoduchzch klasifikatoru a kaskady s fast reject
+
+\chapter{Závěr}
 
 %% Lists of tables and figures, glossary, etc.
 %\printindex
@@ -283,7 +752,9 @@ V praxi se nejčastěji používají hodnoty parcialních nábojů získané met
 \bibliography{charges}
 
 %% Additional materials
-%\appendix
+\appendix
+
+Návod k programu Quick
 
 %% End of the whole document
 \end{document}
