@@ -1,0 +1,167 @@
+Možnosti paralelizace
+
+Můžeme úlohu rozdělit na na sobě nezávislé úkoly. Nyní se naskýtají dvě možnosti. Buď implementovat paralelizmus na úrovni úkolů a provádět jich souběžně více, nebo paralelizovat provádění každého úkolu zvlášť. Pokud zvolíme druhou možnost, budeme na vyřešení prvního úkolu čekat kratší dobu, ovšem vyřešení všech úkolů bude trvat déle, což je důsledek Amdalova zákona. První možnost nabízí lepší efektivitu využívání zdrojů. První možnost nemůžeme zvolit, pokud se větší množství úloh nevejde souběžně do paměti.
+
+Vlákna a procesy
+
+Na úrovni operačního systému. Rozdíl mezi vláknem a procesem je, že vlákna sdílejí paměť, vytvoření vlákna je rychlejší.
+
+False sharing.
+
+SIMD (Single Instruction Multiple Data)
+
+Moderní procesory mají ve své instrukční sadě instrukce, které jsou schopné provádět operace nad více než jednou hodnotou najednou. Nevýhodou SIMD je nutnost tyto vektorové instrukce v programu používat explicitně. Existují kompilátory, které dovedou vektorizovat kód automaticky. Často je jim potřeba pomoci, blocking. Data musí být v paměti zarovnána.
+
+SIMT (Single Instruction Multiple Thread)
+
+Model programování grafických karet. Warp sestává z 32 vláken provádějících tu stejnou instrukci nad různými daty. Je zapotřebí mezi vlákny vhodným způsobem přistupovat k paměti. V případě, že dojde k divergenci, umí procesor vlákna automaticky maskovat.
+
+Partition campling.
+
+Přepínání vláken je implementováno v HW, je tedy mnohem rychlejší než na CPU, kde tuto operaci řídí plánovač OS.
+
+Konflikty paměťových bank.
+
+Utilization.
+
+Obecně je možno říct, že CPU je vhodné pro úlohy kde je hodně komunikace.
+
+Posix threads Pthreads
+
+OpenMP
+
+SMP, podporuje i SIMD. V programu se používá pomocí specialních \#pragma direktiv pro kompilátor. Při překladu je nutno zapnout podporu.
+
+MPI
+
+MPI je API pro zasílání zpráv mezi jinak nezávisle na sobě běžícími procesy, které mohou, ale nemusejí sdílet paměťový prostor. Podle toho, v jaké konfiguraci tyto procesy běží, může zasílání zprávy obnášet buď kopírování paměti v rámci počítače, nebo i síťovou komunikaci mezi počítači, a to skrze rozličná sítová rozhraní (iso xxx Ethernet, Infiniband). OpenMPI je vhodné pro použítí v asymetickém multiprocesingu, kdy je smysluplné rozlišovat mezi lokální, rychlou pamětí, a vzdálenou, pomalou pamětí. Právě přístup ke vzdálené paměti je řešen mechanizmem zasílání zpráv. V případě běhu na jednom počítači má smysl rozlišovat mezi lokální a vzdálenou pamětí u architektur NUMA (Nonuniform Memory Access), která rozděluje paměťový prostor mezi jednotlivé procesory a přístup k paměti příslušející jinému procesoru je pomalejší. Důvodem pro zavedení architektury NUMA jsou výsoké nároky na architekturu cache, které klade dřívě používané SMP.
+
+The Intel® Trace Analyzer and Collector has a long-standing reputation as a profiler that helps you understand MPI application behavior, and effectively visualize bottlenecks in your code. 
+
+Jedná se o běžnou knihovnu v jazyce C. Při překladu stačí přidat parametr pro linker.
+
+Ve verzi 2 není možné za běhu přidávat a odebírat počítače.
+
+Intel Thread Building Blocks
+
+Intel Cilk Plus
+
+% Should I expect Intel Cilk Plus to outperform TBB, OpenMP and MPI?
+% 
+% Intel Cilk Plus offers a competitive alternative for parallel programming that is far easier to use than MPI. It is intended to complement TBB and OpenMP, enabling programmers to parallelize applications that may be too complex or cumbersome to fit into one of these frameworks. Cilk Plus is not intended to be a replacement for these platforms, however. In general, one should not expect to see performance improvements by convert an existing parallel code in TBB or OpenMP to Cilk Plus. TBB, OpenMP and MPI continue to be good choices for writing High Performance Computing applications.
+% 
+% Intel Cilk Plus is designed to be a unique, general-purpose solution which provides good scalability for multi-core programs across a variety of applications and machines, and which allows programmers to exploit both data and task parallelism in their program in a straightforward, maintainable manner. The tradeoff is that Cilk Plus may not be as finely tuned for specific programming patterns or environments as TBB or OpenMP.
+% 
+% In general, each of the parallel programming frameworks has their own strengths and weaknesses. Which framework offers the best performance depends on both on the kind of application and how much the code has been tuned for a particular platform. One should not expect naïve conversions of tuned code from one platform to another to necessarily be comparable in performance, since each platform has its own unique tuning methodology and preferred programming style.
+
+
+
+GPGPU
+
+Využití grafických (geometry processing unit) k provádění obecných výpočtů. Fixed function pipeline a s cílem umožnit grafickým programátorům flexibilnější a zprístupnit vnitřní fungování karty. Nejprve probíhalo vytvářením specialních vertex a fragment shaderů, které pro určitá vstupní data generovaly obrázek, který bylo možno opět relativně snadno transformovat ve výsledek výpočtu. V reakci na tyto akademické snahy začali výrobci grafických karet pracovat na aplikačních rozhraních zpecialně pro GPGPU.
+
+pozn pod čarou houghova (čti háfova) transformace fit, nalezení instancí parametrizovaného modelu v datech, známá zejména pro použítí ve zpracování obrazu k detenci přímek nebo kružnic.
+
+CUDA
+
+Cuda je výpočetní API vytvořené firmou Nvidia
+
+OpenCL
+
+Apple.
+
+Kernely se kompilují ze zdrojového kódu až při spuštění programu na cílovém hardware. Z tohoto důvodu je nutné s programem distribuovat i zdrojové kódy a může dojít k úniku duševního vlastnictví tvůrce programu. Podobným problémem trpí i grafická knihovna OpenGL. Cuda i DirectX distribuují kernely zkompilované do platformně nezávislého mezikódu.
+
+Cude nabízí dvě různá API. První, určené začátečníkům a pro situace, kde není nutné . Kernely se píší do stejných souborů, jako kód aplikace a na první pohled vypadají jako běžné funkce v jazyce C++. Ať už programátor použije libovolné API, nemusí řešit kompilaci, neboť tu obstará k tomu určený frontend nvcc, který rozdělí kódy kernelů a kód aplikace, a na každé zavolá příslušný kompilátor. OpenCL API je více nízkoúrovňové a nutí programátora zabývat se větším množstvím detailů, i když tuto flexibilitu nepotřebuje. Kompilace kernelů je manualní proces, programátor musí 
+
+Překážkou při využívání dedikovaného hardware často je problém relativné nízké rychlosti sběrnice mezi tímto zařízením a operační pamětí počítače. je nutné, aby se na dedikovaném hardware vykonalo alespoň takové množství práce, které by ospravedlňilo časové náklady nuté k překopírování dat na grafickou kartu a následně výsledku zpět do hlavní paměti.
+
+Výhodou OpenCL je, že existují implementace pro CPU i další specifický hardware jako jako FPGI (Field Programable, programovatelná hradlová pole). Kompilátor umí namapovat OpenCL kernel na grafické karty, paralelní architektury v procesorech (vícero procesorů v počítači, vícero jader v procesoru, SIMD) i FPGA (softwarem definovaný logický obvod). Díky tomu je možné jeden program spouštět na celé řadě zařízení. Heterogeneous computing.
+
+Funkce přibývají pomaleji, tuning je stejně potřeba provádět pro každý hw zvlášť. Extenze. [to je ze slajdů]
+
+https://aur.archlinux.org/packages/beignet/ intelí runtime pro grafiky na linux
+
+--%v linuxu je nějaké Clover a Gallium3D \url{http://www.phoronix.com/scan.php?page=news_item&px=MTM1MzM}
+
+%http://portablecl.org/
+
+%https://fedoraproject.org/wiki/Changes/OpenCL
+
+clpeak, Find peak OpenCL capacities like bandwidth \& compute 
+
+AMD změnila architekturu grafických karet, bylo wliw
+
+Nvidia, AMD (GPU i CPU), Intel, (FPGA) a další. Existují experimentální implementace WebCL pro prohlížeče Chrome, Firefox a dedikované javascriptové běhové prostředí NodeJS.
+
+Z pohledu aplikace prezentuje OpenCL hierarchii objektů. Na nejvyšší úrovni je platforma. Pod každou platformou se může nacházet jedno nebo více zařízení. Aplikace může na jednom nebo několika zařízeních patřících do stejné platformy vytvořit kontext. 
+
+Zařízení
+work-group, work item
+global memory
+local memory
+
+CUDA
+global memory | global memory
+local memory | shared memory
+|registers
+
+work group
+work item
+preferred *** size | warp
+
+Globální paměť se nachází na výpočetním zařízení a před započetím výpočtu je nutné do ní překopírovat vstup a po skončení výpočtu naopak zpět překopírovat výstup. Mezi operační pamětí počítače a grafickou kartou se nachází sběrnice PCI-E, která je schopna přenášet 4 GB/s, řádově 200 
+
+posuzování výkonu: occupancy, poměr maximální výpočetní a přenosové kapacity vůči využívané výpočetní a přenosové kapacitě, srovnání s dříve dosaženými výsledky v literatuře, profilery umožňují změřit occupancy
+
+Renderscript
+
+Jedná se o API nad CPU a GPU v operačním systému Android
+
+Precision Memory Leak Detection Using the New On-Demand Leak Detection in Intel® Inspector XE
+
+WebCL
+
+Implementace OpenCL API v javascriptu, Nokia (Firefox), , Motorola Mobility (NodeJS) experimentální implementace.
+
+existují OpenCl knihovny pro Python, ...
+
+C++ , DirectX11compute
+
+Rozšíření C++ které umožňuje programovat pro DirectX11 Compute v jazyce C++.
+
+Communicating sequential programs (CSP)
+
+Autorem paradigmatu CSP je Hoare. Podstatou CSP je strukturovat program jako vícero nezávislých procesů, které spolu komunikují pomocí zasílání zpráv přes kanály. Na rozdíl od modelu aktorů nemají tyto procesy oddělený paměťový prostor. Programování v tomto modelu je založeno na dodržování konvencí. Pokud program odešle referenci na měnitelný objekt pomocí kanálu jinému proceu, nesmí dotyčný objekt už sám nikterak měnit nebo číst. V situacích, kdy mechanizmus zpráv a kanálů nestačí, je možné využít klasícké programovací přístupy pomocí zámků a dalších primitiv. "Share memory by communication. Don't communicate by sharing memory." V jazyce C++ je tento přístup podporován pomocí knihoven. Programovací jazyk Go obsahuje CSP konstrukce přímo jako klíčová slova. Mezi C++ a Go existují možnosti pro interoperabilitu a je tudíž myslitelné vytvořit jádro aplikace v C++ a následně je spouštět paralelně z programu v jazyce Go.
+
+Zvolené řešení
+
+OpenCL + MPI, přímo i prostřednictvím knihoven, OpenMP pro plnění matic a výpočet párových vzdáleností.
+
+Hvězda, jeden počítač čte vstup, plní matice a posílá...
+
+\fixme{Ehm, paralelizace je vhodnější pro případnou parametrizaci, takže spíš nachystat to do stavu, aby se k tomu dala doprogramovat paralelní parametrizace}
+
+Nástroje pro OpenCL
+
+AMD
+
+http://developer.amd.com/tools-and-sdks/heterogeneous-computing/codexl/
+debugger, profiler a statický analyzátor pro OpenCL kernely
+
+knihovny clMath (FFT a Blas), clMAGMA (umí i least squares)
+Bolt, abstrakce nad OpenCL a C++ AMP
+
+knihovny
+
+ViennaCL
+
+Knihovna tvoří nádstavbu nad  a navíc obsahuje vlastní implementované jako OpenCL kernely. Mezi těmito třemi implementacemi je možno přepínat.
+
+Řešení soustavy linearních rovnic se MPI nehodí, jelikož se jedná o příliš malý problém a zasílání zpráv má příliš velkou režii, mohl by být ale užitečný z hlediska rozděnení zátěže mezi více počítačů.
+
+Relativné časté je kombinování výpočtů na grafické kartě s OpenMPI, což umožňuje využít současně grafické karty na vícero počítačích.
+
+Knihovna ViennaCL nabízí backendy pro OpenMP, OpenCL i Cuda. Navíc umí interoperabilitu s knihovnou Eigen, kterou jsem si vybral hned na začátku.
+
+OpenMP využíváno jen jako k využívání vícero grafických karet na jednom systému. https://www.wiki.ed.ac.uk/display/ecdfwiki/Use+multiple+GPU+devices+with+OpenMP+and+CUDA streamy, to advanced api.

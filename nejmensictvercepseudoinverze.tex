@@ -1,0 +1,58 @@
+Metoda nejmenších čtverců
+
+predikční chyba a ta druhá, čtverce nebo průměty
+
+Matrix computations Least square methods
+
+je možno velmi kompaktně vyjádřit maticovým zápisem jako 
+
+C = A + * b
+
+kde A+ značí Moore-penrosova pseudoinverze matice A.
+
+V případě, že na rychlosti nezáleží (při interaktivním počítání v Matlabu) je vhodné použít SVD dekompozici. Neklade žádné specialní požadavky na vstupní matici a je velmi přesná.
+
+@misc{Sestrienková2013thesis,
+AUTHOR = "SESTRIENKOVÁ, Simona",
+TITLE = "Mooreova-Penrosova pseudoinverze, iterační algoritmy pro výpočet [online]",
+YEAR = "2013 [cit. 2014-04-28]",
+TYPE = "Bakalářská práce", 
+SCHOOL = "Masarykova univerzita, Přírodovědecká fakulta",
+SUPERVISOR = "Jiří Zelinka", 
+%URL = "Dostupné z WWW <http://is.muni.cz/th/379436/prif_b/>",
+}
+
+http://vene.ro/blog/inverses-pseudoinverses-numerical-issues-speed-symmetry.html
+\(\operatorname{arg\,min}_x ||b - Ax||\)
+
+Je možno jednoduše odvodit, pokud vyjdeme z rovnice přímky y = ax+b, vyjádříme hodnotu b-Ax jako funkci v proměnných a,b a tuto kvadratickou funkci minimalizujeme nalezením derivace.
+
+dovoluje přesunout problém výpočtu na zvolenou matematickou knihovnu. Tomáš Ráček ve své diplomové práci setkal s problémem nedostačujícího řádového rozsahu typu float32 při přímé implementaci vzorce (). Sumace kdy dochází k příčítání relativně velkého součtu v akumulátoru k v porovnání s ní malé hodnotě jednotlivých prvků vektoru.
+
+Pseudoinverze
+
+SVD, QR
+
+% Linear Least Squares Problem
+% classes.soe.ucsc.edu/cmps290c/Spring04/paps/lls.pdf‎
+% ... among the three. On the other hand SVD is the slowest and most accurate. ... QR factorization transform the linear least square problem into a triangular least ...
+% 
+% PDF]
+% NUMERICALLY EFFICIENT METHODS FOR SOLVING ...
+% math.uchicago.edu/~may/REU2012/REUPapers/Lee.pdf‎
+% by LEE DO Q - ‎2012 - ‎Related articles
+% Aug 24, 2012 - The QR Factorization in Least Squares Problems. 10. 5.4. ... Singular Value Decomposition (SVD) and its robustness in solving rank-deficient.
+% 
+% [PDF]
+% Lecture 9 - Least Squares, QR and SVD - University of ...
+% https://wiki.engr.illinois.edu/download/attachments/.../lecture09.pdf?...‎
+% Mar 15, 2011 - Lecture 9. Least Squares, QR and SVD. T. Gambill. Department of Computer Science. University of Illinois at Urbana-Champaign. March 15 ...
+% 
+% Eigen: Solving linear least squares systems
+% eigen.tuxfamily.org/dox-devel/group__LeastSquares.html‎
+% This page describes how to solve linear least squares systems using Eigen. ... page are the SVD decomposition, the QR decomposition and normal equations.
+% 
+% [PDF]
+% Linear Algebra, part 3 QR and SVD Going back to least ...
+% www.csc.kth.se/utbildning/kth/kurser/DN2266/matmod12/LA3_2p.pdf‎
+% Linear Algebra, part 3. QR and SVD. Anna-Karin Tornberg. Mathematical Models, Analysis and Simulation. Fall semester, 2012. Going back to least squares.
