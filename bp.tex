@@ -3,10 +3,24 @@
 %% {draft, final}
 %% {oneside, twoside}
 %% {onecolumn, twocolumn}
-\documentclass[10pt,draft,oneside]{fithesis2}
+%%\documentclass[10pt,draft,oneside]{fithesis}
+
+\documentclass[
+  color, %% This option enables colorful typesetting. Replace with
+         %% `monochrome`, if you are going to print the thesis on
+         %% a monochromatic printer.
+  table, %% Causes the coloring of tables. Replace with `notable`
+         %% to restore plain tables.
+  lof,   %% Prints the List of Figures. Replace with `nolof` to
+         %% hide the List of Figures.
+  lot,   %% Prints the List of Tables. Replace with `nolot` to
+         %% hide the List of Tables.
+  %% More options are listed in the class documentation at
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/fi.pdf>.
+]{fithesis3}
 
 %% Basic packages
-\usepackage[english,czech]{babel}
+\usepackage[main=czech, english]{babel}
 \usepackage{cmap}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -36,7 +50,7 @@
 \usepackage{makeidx}
 %\makeindex
 
-\usepackage[xindy]{glossaries}
+%\usepackage[xindy]{glossaries}
 %\makeglossary
 
 %% Use STAR and CIRCLE signs for nested
@@ -54,89 +68,108 @@
 %\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>}\urlstyle{tt}}  %rm/sf/tt
 %\renewcommand{\emph}[1]{\textsl{#1}}    % melo by byt kurziva nebo sklonene,
 
+%% The following section sets up the metadata of the thesis.
+\thesissetup{
+    university    = mu,
+    faculty       = fi,
+    type          = bc,
+    author        = Jiří Daněk,
+    gender        = m,
+    advisor       = RNDr. Radka Svobodová Vařeková, Ph.D.
+    title         = {Srovnání semiempirických metod EEM a QEq pro výpočet nábojů v molekulách},
+    TeXtitle      = {Srovnání semiempirických metod EEM a QEq pro výpočet nábojů v molekulách},
+    keywords      = {Huckellovy parcialní náboje, Electronegativity equalization method, Charge equilibration},
+    TeXkeywords   = {Huckellovy parcialní náboje, Electronegativity equalization method, Charge equilibration},
+}
+%% Abstract (required)
+%\begin{ThesisAbstract}
+\thesislong{abstract}{
+Parciální náboje charakterizují elektronovou strukturu molekuly jen velmi omezeně, poskytují však cenné kvalitativní informace o chemických, fyzikálních i biologických vlastnostech molekul a mají využití i v kvantitativních modelech, jako je molekulová dynamika nebo predikce pKa. Pro výpočet parciálních nábojů bylo zavedeno vícero definic postihujících elektronovou strukturu molekul různým způsobem. Výpočet nábojů přímo dle definice často vyžaduje použití výpočetně náročných ab-initio metod, a proto se využívá i méně přesných empirických metod, které na základě parametrů získaných z dříve provedených ab-initio výpočtů aproximují parciální náboje s výrazně menší výpočetní náročností. Tato bakalářská práce popisuje a srovnává dvě empirické metody z hlediska jejich schopnosti reprodukovat Mullikenovy a Merz-Kollmanovy parciální náboje, EEM (Electronegativity Equalization Method) a QEq (Charge equilibration).
+
+Přínos práce spočívá v implementování solverů pro EEM i QEq pod svobodnou licencí, ve vytvoření ucelené databáze dříve publikovaných sad parametrů pro metodu QEq a ve vyhodnocení přesnosti obou studovaných metod a všech shromážděných sad parametrů na ověřovací sadě 657 molekul léčiv.
+}
+
+% \selectlanguage{english}
+% % http://tex.stackexchange.com/questions/24066/start-new-chapter-on-same-page
+% \begingroup
+% \let\clearpage\relax
+% \vskip 1cm plus 5mm
+% \chapter*{Abstract}
+% \endgroup
+% 
+% Partial charges, or net atomic charges, are only a crude description of the electronic structure of a molecule. Nevertheless, they are an useful characteristic of a molecule that can provide qualitative insights into physical, chemical and biological properties of a compound and can also serve as an input for quantitative computational models, be it Molecular Dynamics simulations or pKa prediction. There are several definitions of partial atomic charges that all reflect the electronic structure of the molecule in different ways and are therefore are incompatible with each other. Some definitions can be straightforwardly transformed into an ab-initio computation, which is usually impractically slow. Many empirical methods have been subsequently developed, each aims to provide results close to a particular ab-initio metod but in significantly shorter time. This thesis concerns itself with characterization and evaluation of two such empirical methods that have been developed for estimating Mulliken partial charges and Merz-Kollman partial charges, namely EEM (Electronegativity equalization method) and QEq (Charge equilibration).
+% 
+% This thesis improves on the previously published research by compiling a comprehensive list of previously published parameter sets for the QEq method and by providing an evaluation of the accuracy of both EEM and QEq methods on a large test set of 657 species of drug molecules. EEM and QEq solvers developed while working at this thesis are released under an open-source licence.
+% \end{ThesisAbstract}
+
+%% Thanks (optional)
+%\begin{ThesisThanks}
+\thesislong{thanks}{
+Rád bych na tomto místě poděkoval absolventům Fakulty informatiky Stanislavu Filipčíkovi, Danielu Marekovi, Janu Pavlovičovi, Vítu Novotnému a vyučujícímu Petru Sojkovi, autorům šablony fithesis pro sazbu závěrečné práce v systému \LaTeX{}.
+
+Při řešení bakalářské práce jsem dostal možnost provést časově náročné výpočty v počítačovém programu Gaussian 09 na počítačích Národní gridové infrastruktury MetaCentrum zpřístupněných v rámci programu "Projects of Large Infrastructure for Research, Development, and Innovations" (LM2010005).-
+}
+%\end{ThesisThanks}
+
+% 
+% \selectlanguage{czech}
+% \begin{ThesisKeyWords}
+% Huckellovy parcialní náboje, Electronegativity equalization method, Charge equilibration
+% 
+% \selectlanguage{english}
+% \begingroup
+% \let\clearpage\relax
+% \vskip 1cm plus 5mm
+% \chapter*{Keywords}
+% \endgroup
+% 
+% Huckell partial charges, net atomic charges, Electronegativity equalization method, Charge equilibration
+% \end{ThesisKeyWords}
+
 %% Title page information
-\thesistitle{Srovnání semiempirických metod EEM a QEq pro výpočet nábojů v molekulách}
-\thesissubtitle{Bakalářská práce}
-\thesisstudent{Jiří Daněk}
-\thesiswoman{false} %% Important when using Slovak or Czech lang
-\thesisfaculty{fi}  %% {fi, eco, law, sci, fsps, phil, ped, med, fss}
-\thesislang{cs}     %% {en, sk, cs}
-\thesisyear{jaro 2014}
-\thesisadvisor{RNDr. Radka Svobodová Vařeková, Ph.D.}
+%\thesistitle{Srovnání semiempirických metod EEM a QEq pro výpočet nábojů v molekulách}
+%\thesissubtitle{Bakalářská práce}
+%\thesisstudent{Jiří Daněk}
+%\thesiswoman{false} %% Important when using Slovak or Czech lang
+%%\thesisfaculty{fi}  %% {fi, eco, law, sci, fsps, phil, ped, med, fss}
+%\thesislang{cs}     %% {en, sk, cs}
+%\thesisyear{jaro 2014}
+%\thesisadvisor{RNDr. Radka Svobodová Vařeková, Ph.D.}
 
 %% Beginning of the document
 \begin{document}
-\selectlanguage{czech}
+%\selectlanguage{czech}
 
 %% Front page with a logo and basic thesis information
-\FrontMatter
-\ThesisTitlePage
+%\FrontMatter
+%\ThesisTitlePage
 
 %% Thesis declaration (required)
-\begin{ThesisDeclaration}
-  \DeclarationText
-  \AdvisorName
-\end{ThesisDeclaration}
+%\begin{ThesisDeclaration}
+%  \DeclarationText
+%  \AdvisorName
+%\end{ThesisDeclaration}
 
-%% Thanks (optional)
-\begin{ThesisThanks}
-Rád bych na tomto místě poděkoval absolventu Fakulty informatiky Mgr. Stanislavu Filipčíkovi, autorovi šablony fithesis2 pro sazbu závěrečné práce v systému \LaTeX{}.
 
-Řešení bakalářské práce mi značně zjednodušila možnost provést časově náročné výpočty v programu Gaussian 2008 na počítačích zpřístupněných v rámci Národní gridové infrastruktury MetaCentrum.
 
-V neposlední řadě chci také poděkovat svým rodičům za podporu ve studiu.
-\end{ThesisThanks}
 
-%% Abstract (required)
-\begin{ThesisAbstract}
-Parciální náboje charakterizují elektronovou strukturu molekuly jen velmi omezeně, poskytují však cenné kvalitativní informace o chemických, fyzikálních i biologických vlastnostech molekul a mají využití i v kvantitativních modelech, jako je molekulová dynamika nebo predikce pKa. Pro výpočet parciálních nábojů bylo zavedeno vícero definic postihujících elektronovou strukturu molekul různým způsobem. Výpočet nábojů přímo dle definice často vyžaduje použití výpočetně náročných ab-initio metod, a proto se využívá i méně přesných empirických metod, které na základě parametrů získaných z dříve provedených ab-initio výpočtů aproximují parciální náboje s výrazně menší výpočetní náročností. Tato bakalářská práce popisuje a srovnává dvě empirické metody z hlediska jejich schopnosti reprodukovat Mullikenovy parciální náboje, EEM (Electronegativity equalization method) a QEq (Charge equilibration).
-
-Přínos práce spočívá v implementování solverů pro EEM i QEq pod svobodnou licencí, ve vytvoření ucelené databáze dříve publikovaných sad parametrů pro metodu QEq a ve vyhodnocení přesnosti obou studovaných metod a všech shromážděných sad parametrů na rozsáhlé testovací sadě \fixme{1000} organických molekul.
-
-\selectlanguage{english}
-% http://tex.stackexchange.com/questions/24066/start-new-chapter-on-same-page
-\begingroup
-\let\clearpage\relax
-\vskip 1cm plus 5mm
-\chapter*{Abstract}
-\endgroup
-
-Partial charges, or net atomic charges, are only a crude description of the electronic structure of a molecule. Nevertheless, they are an useful characteristic of a molecule that can provide qualitative insights into physical, chemical and biological properties of a compound and can also serve as an input for quantitative computational models, be it Molecular Dynamics simulations or pKa prediction. There are several definitions of partial atomic charges that all reflect the electronic structure of the molecule in different ways and are therefore are incompatible with each other. Some definitions can be straightforwardly transformed into an ab-initio computation, which is usually impractically slow. Many empirical methods have been subsequently developed, each aims to provide results close to a particular ab-initio metod but in significantly shorter time. This thesis concerns itself with characterization and evaluation of two such empirical methods that have been developed for estimating Mulliken partial charges, namely EEM (Electronegativity equalization method) and QEq (Charge equilibration).
-
-This thesis improves on the previously published research by compiling a comprehensive list of previously published parameter sets for the QEq method and by providing an evaluation of the accuracy of both EEM and QEq methods on a large test set of 1000 species of inorganic molecules. EEM and QEq solvers developed while working at this thesis are released under an open-source licence.
-\end{ThesisAbstract}
-
-\selectlanguage{czech}
-\begin{ThesisKeyWords}
-Huckellovy parcialní náboje, Electronegativity equalization method, Charge equilibration
-
-\selectlanguage{english}
-\begingroup
-\let\clearpage\relax
-\vskip 1cm plus 5mm
-\chapter*{Keywords}
-\endgroup
-
-Huckell partial charges, net atomic charges, Electronegativity equalization method, Charge equilibration
-\end{ThesisKeyWords}
-
-\MainMatter
+% 
+% \MainMatter
 
 \selectlanguage{czech}
 
 %U diplomky se MUSÍ vejít na jednu stranu.
-\tableofcontents
+%\tableofcontents
 
 %% Thesis text structured using
 %% chapters, sections, subsections, etc.
 \chapter*{Úvod}
 
-Předmětem studia chemie je elektronový obal atomů, zejména jejich valenční elektrony, neboť ty se účastní tvorby chemických vazeb. Atomové jádro se nachází hluboko uvnitř elektronového obalu a z hlediska chemických vlastností atomu hraje jen malou roli (tím, jak ovlivňuje elektronový obal). Vlastnosti molekul jsou taktéž dány elektronovou konfigurací molekul. Můžeme tedy říct, že popis elektronové hustoty je středobodem chemie. \fixme{zdroj} V chemii existuje vícero způsobů, jak zachytit chování molekuly. Úplným popisem systému je vlnová funkce (viz xtý postulát). Od 70 let DFT, pro znalost velkého množsví měřitelných údajů není nutné znát vlnovou funkci, ale snačí znát distribuční funkci elektronové hustoty. Tu je jednodušší spočítat. Ze znalosti vlnové funkce je možno určit distribuční funci elektronové husty, ale ne naopak \todo{to je myslím Leach nebo to co cituju u toho I, II, III, ... Essentials cosi.} Ještě dalším zjednodušením proti DFT jsou parcialní náboje, které popisují elektronovou hustotu pomocí bodových nábojů umístěných v centrech atomů. Takové zjednodušení nutně vede ke ztrátě informace (existují distribuce elektronové hustoty, které není možno přesně popsat pomocí nábojů umístěných v centrech atomů, různé distribuce elektronové hustoty mohou vést ke stejným parcialním nábojům, neexistuje shoda na metodě, jak rozdělit elektronovou hustotu k nábojům), přesto ale mohou být užitečné.
+Předmětem studia chemie je elektronový obal atomů, a zejména jejich valenční elektrony, neboť ty se účastní tvorby chemických vazeb. Atomové jádro se nachází hluboko uvnitř elektronového obalu a z hlediska chemických vlastností atomu hraje jen malou roli (tím, jak ovlivňuje elektronový obal). Vlastnosti molekul jsou taktéž dány jejich elektronovou konfigurací. \fixme{zdroj} V chemii existuje vícero způsobů, jak zachytit chování molekuly. Jedním z postulátů kvantové mechaniky je, že uplným popisem systému, například molekuly, je vlnová funkce \citep[s.~4]{cramer2004essentials}. Od poloviny 60.~let 20.~století se rozvíjí DFT (Density Field Theory) \citep[s.~252]{cramer2004essentials}. DFT říká, že pro určení velkého množství měřitelných údajů není nutné znát vlnovou funkci molekuly, ale snačí znát distribuční funkci elektronové hustoty. Ze znalosti vlnové funkce je možno určit distribuční funci elektronové husty. Distribuční funkci elektronové hustoty je možno určit i bez předchozí znalosti vlnové funkce, čehož se využívá při studiu velkých organických molekul, pro které je výpočet vlnové funkce zatím mimo naše technické možnosti, ale dostatečně přesný výpočet distribuce elektronové hustoty prakticky zvládnutelný je \citep[s.~260]{cramer2004essentials}. Ještě dalším zjednodušujícím popisem v porovnání s DFT jsou parcialní náboje, které aproximují elektronovou hustotu pomocí bodových nábojů umístěných v centrech atomů. Takové zjednodušení vede ke ztrátě informace, navíc neexistuje shoda na metodě, jak rozdělit elektronovou hustotu k atomům, a proto existuje mnoho různých definic parciálních nábojů. Přesto se ale jedná o velice užitečný koncept, který má řadu praktických aplikací.
 
+Stejně jako je možné určit distribuční funkci elektronové hustoty aniž bychom před tím určili vlnovou funkci, je pomocí empirických metod možné počítat parciální náboje i bez předchozí znalosti distribuční funkce elektronové hustoty. Tato práce popisuje a srovnává dvě empirické metody pro určení parciálních nábojů molekuly na základě 3D struktury molekuly. První metodou je EEM (Electronegativiy Equalization Method) a druhou je metoda Qeq (Charge Equilibration).
 
-Tato práce popisuje a srovnává dvě empirické metody pro určení
-
-Prezentuje sady parametrů pro QEq v publikované literatuře. Srovnání metod mezi sebou a s ab-initio metodou na základě které byly parametrizovány na vícero skupinách molekul. Pro různé sady molekul. 
+Práce začíná teoretickou částí, kde jsou uvedeny a vysvětleny pojmy z oblasti počítačové chemie, se kterými jsem se při řešení práce setkal, i další poznatky, které jsem použil při řešení práce. Jsou zde také představeny obě popisované metody. Prezentuje sady parametrů pro QEq v publikované literatuře. Srovnání metod mezi sebou a s ab-initio metodou na základě které byly parametrizovány na vícero skupinách molekul. Pro různé sady molekul. 
 
 V této práci jsem implementoval dvě empirické metody pro stanovení parcialních nábojů atomů a srovnal je z hlediska rychlosti a kvality výsledku s přístupy Ab initio. EEM a Qeq
 
@@ -146,80 +179,180 @@ Tento problém řeší empirické metody, které se snaží kopírovat vý dáva
 
 Práce je členěna následujícím způsobem. První kapitola seznamuje čtenáře se základy počítačové chemie. Ve druhé kapitole je představen problém stanovéní parcialních nábojů a metody k jeho řešení. Jsou vysvětleny principy metod EEM a Qeq. Třetí kapitola shrnuje dosavadní výsledky diplomových prací a vědeckých článků na toto téma. Čtvrtá kapitola představuje moji implementaci obou metod a . Pátá kapitola obsahuje srovnání metod EEM a Qeq na testovací sadě molekul. Šestá kapitola shrnuje dosažené výsledky.
 
-%This thesis is structured as follows. The problem of partial atomic charge estimation is first introduced assuming no computational chemistry experience. The principle of EEM and Qeq is explained. Both methods are implemented, parameter sets from previous published literature are compilled. Methods are evaluated by comparing the predicted charges with a gold standard of computed using the ab-initio method on Test set of drug published by the Welcome Trust regarding \todo{accuracy} using several statistical measures. The merits of this thesis of the published QEq parameter set and in evaluation of both methods with all parameter sets on a large set of 1000 inorganic molecules.
+%This thesis is structured as follows. The problem of partial atomic charge estimation is first introduced assuming no computational chemistry experience. The principle of EEM and Qeq is explained. Both methods are implemented, parameter sets from previous published literature are compilled. Methods are evaluated by comparing the predicted charges with a gold standard of computed using the ab-initio method on Test set of drug published by the Welcome Trust regarding \todo{accuracy} using several statistical measures. The merits of this thesis of the published QEq parameter set and in evaluation of both methods with all parameter sets on a large set of ??? inorganic molecules.
 
 \chapter{Základní pojmy počítačové chemie}
 
-Předmětem počítačové chemie (chemoinformatika, méně často cheminformatika) je využití počítačů v chemii. To obnáší jak digitální archivaci výsledků chemického výzkumu a následné vyhledávání v těchto datech, tak provádění výpočtů a simulací chemických a biochemických systémů s cílem formulovat nové hypotézy. Příkladem z první oblasti jsou databáze chemických sloučenin, reakcí, a faktografických údajů, které začaly vznikat od 60. let 20. století v reakci na v té době začínající exponencialní nárůst množství chemických poznatků. Do té doby narůstal počet známých chemických sloučenin přibližně lineárně. Když se tento trend změnil v exponenciální, chemici velmi rychle spatřili potenciál výpočetní techniky umožnit jim se s touto informační explozí vypořádat. (leech nebo comp chem, ta následujicí citace asi stačí) Příkladem z druhé, mladší oblasti počítačové chemie, která se někdy nazývá výpočetní chemie (computational chemistry) jsou metody molekulové mechaniky a molekulové dynamiky, které umožňují studovat chování molekul in-silico. \fixme{leach} Definic výpočetní chemie existuje mnoho (ta webstránka), autorem následující je Počítačová chemie usiluje o to, popsat všechny aspekty chemie v co nejlepší shodě s realitou pomocí výpočtů, raději než experimentálně. Attempts to model all aspects of real chemistry as closely as possible by using calculations rather than experiment. https://www.theochem.kth.se/people/ivo/philo.html
+Předmětem počítačové chemie (chemoinformatiky, někdy také cheminformatiky) je využití počítačů v chemii. To obnáší jak digitální archivaci výsledků chemického výzkumu a následné vyhledávání v těchto datech, tak provádění výpočtů a simulací chemických a biochemických systémů s cílem formulovat nové hypotézy nebo zamítnout hypotézy stávající. Příkladem z první oblasti jsou databáze chemických sloučenin, reakcí, a faktografických údajů, které začaly vznikat od 60. let 20. století v reakci na v té době začínající exponencialní nárůst množství chemických poznatků. Do té doby narůstal počet známých chemických sloučenin přibližně lineárně. Když se tento trend změnil v exponenciální, chemici velmi rychle spatřili potenciál výpočetní techniky umožnit jim se s touto informační explozí vypořádat. Příkladem z druhé, mladší oblasti počítačové chemie, která se nazývá výpočetní chemie (computational chemistry) jsou metody molekulové mechaniky a molekulové dynamiky, které umožňují studovat chování molekul in-silico. Definic výpočetní chemie existuje mnoho, autorem následující je Schlyer. Přeložena z angličtiny zní: \uv{Počítačová chemie usiluje o to, popsat všechny aspekty chemie v co nejlepší shodě s realitou pomocí výpočtů namísto experimentu.} \citep{ma1995philosophy}.
 
-Chemoinformatika může být použita k předpovídání vlastností molekul, její předpovědi a simulace je ale nutno nakonec vždy ověřit experimentálně. Hlavní přínos chemoinformatiky spočívá v tom, že dovoluje výzkumníkům zaměřit se na perspektivní experimenty, když před tím rychle a levně zamítne ty neperspektivní. (zas historie comp chem) Konkrétním příkladem je virtualní screening, kdy se pomocí výpočetních metod vybírají kandidátské molekuly z rozsáhlé knihovny a zamítají se takové, které například mají nevhodné pH. \todo{nějaký článek, konkrétní příklad?}
+Chemoinformatika může být použita k předpovídání vlastností molekul, její předpovědi a simulace je ale nutno nakonec vždy ověřit experimentálně. Přínos chemoinformatiky spočívá v tom, že dovoluje výzkumníkům zaměřit se na perspektivní experimenty, když před tím rychle a levně zamítne ty neperspektivní. Konkrétním příkladem je virtualní screening, kdy se pomocí výpočetních metod vybírají kandidátské molekuly z rozsáhlé knihovny a zamítají se takové, které například mají nevhodné pKa.
 
 \section{Reprezentace molekuly v počítači}
 
-Předmětem zájmu počítačové chemie je molekula. V počítači můžeme molekulu reprezentovat buďto z hlediska její struktury, nebo geometrie.
+Předmětem zájmu počítačové chemie je molekula. V počítači můžeme molekulu reprezentovat buď z hlediska její struktury, nebo geometrie. \citep{s.~2}{leach2001molecular}
 
 \subsection{Strukturní reprezentace}
 
-Molekula sestává z atomů, mezi kterými jsou chemické vazby. Strukturní reprezentace molekuly je z formálního hlediska vrcholově ohodnocený pseudograf. Pseudograf je multigraf, který může obsahovat smyčky (hrany vycházející i vcházející do stejného vrcholu). Multigraf je graf, mezi jehož dvěma vrcholy může být i více než jedna hrana. Vrcholy v pseudografu představují atomy v molekule, hrany v grafu představují chemické vazby mezi atomy, vrcholové ohodnocení grafu nám umožňuje přiřadit vrcholům chemické symboly prvků. Možnost vložit mezi dvojici vrcholů více než jednu hranu se využije pro popis vícenásobných vazeb. Možnost přidávat smyčky slouží k zachycení volných elektronových párů na atomech.
+Molekula sestává z atomů, mezi kterými jsou chemické vazby. Strukturní reprezentace molekuly je vrcholově ohodnocený pseudograf. Pseudograf je multigraf, který může obsahovat smyčky (hrany vycházející i vcházející do stejného vrcholu). Multigraf je graf, mezi jehož dvěma vrcholy může být i více než jedna hrana (a na jednom vrcholu může být i více než 1 smyčka). Vrcholy v pseudografu představují atomy v molekule, hrany v grafu představují chemické vazby mezi atomy, vrcholové ohodnocení grafu nám umožňuje přiřadit vrcholům chemické symboly prvků. Možnost vložit mezi dvojici vrcholů více než jednu hranu se využije pro popis vícenásobných vazeb. Možnost přidávat smyčky slouží k zachycení volných elektronových párů na atomech.
 
 Formálně je struktura molekula popsána pseudografem $G = (V, E, L, j, b)$, kde $V$ je množina vrcholů, $E$ je multimnožina hran, $L$ multimnožina smyček a $j$ je funkce, přiřazující prvku množiny $V$ ohodnocení z množiny $b$.
 
-Grafová reprezentace molekuly odpovídá strukturnímu vzorci, běžně používanému zejména v organické chemii. Využití grafů k reprezentaci molekul otevírá prostor využití grafových algoritmů k řešení chemických problémů. Tím nejzákladnějším, abychom byly schopni s molekulami v počítači pracovat, je jejich ekvivalence. Zjistit, zda dva grafy reprezentují stejnou molekulu znamená řešit problém izomorfismu grafů. Pro obecný graf je tento problém NP-úplný (citovat to ze skieny?), izomorfismus planárních grafů je možno řešit v čase O(n log n) a je možné využívat heuristiky, které dokáží dramaticky snížit časovou složitost průmětného případu. Molekulové databáze také mohou předpočítat indexy zrychlující následné dotazy.
+Grafová reprezentace molekuly odpovídá strukturnímu vzorci, běžně používanému zejména v organické chemii. Využití grafů k reprezentaci molekul otevírá prostor využití grafových algoritmů k řešení chemických problémů. Tím nejzákladnějším, abychom byly schopni s molekulami v počítači pracovat, je jejich ekvivalence. Zjistit, zda dva grafy reprezentují stejnou molekulu znamená řešit problém izomorfismu grafů. Pro obecný graf je tento problém NP-úplný \citep{s.~335}{skiena1998algorithm}. Izomorfismus planárních grafů je možno rozhodnout v čase O(n log n). Při řešení izomorfizmů molekulových grafů je možné využívat heuristiky, které se snaží co nejrychleji najít nesoulad mezi porovnávanými molekulami a kandidáta zamítnout, čímž dokáží dramaticky snížit časovou složitost průmětného případu. Molekulové databáze také mohou předpočítat indexy zrychlující následné dotazy.
 
-\subsection{Geometrie molekuly}
+\subsection{Geometrická reprezentace}
 
-Moderní experimentální metody, jako je Roentgenová krystalografie, dovolují  strukturou se rozumí prostorové uspořádání molekul. Tento zápis je při experimentů odhalujících strukturu molekul, jako je roentgenové krystalografie a kvantová mechanika.
-
-Zápis molekuly její geometrií zanedbává informaci o vazbách a popisuje pouze pozice atomů v prostoru. Pozice atomů mohou být udány buď v kartézských souřadnících vůči libovolně zvolenému počátku souřadnic, nebo ve vnitřních souřadnicích, pomocí vzdáleností a úhlů vůči dříve uvedeným atomům.
+Zápis molekuly pomocí její geometrií zanedbává informaci o vazbách a popisuje pouze pozice atomů v prostoru. Pozice atomů mohou být udány buď v kartézských souřadnících vůči libovolně zvolenému počátku souřadnic, nebo ve vnitřních souřadnicích, pomocí vzdáleností a úhlů vůči dříve uvedeným atomům.
 
 Zadání v kartézské soustavě souřadnic znamená o každém atomu uvést jeho typ a trojici souřadnic x, y, z.
 
-Zápis v interních souřadnicích se provádí pomocí Matice Z. U prvního atomu je uveden pouze jeho typ. Druhý atom je zadán typem a vzdáleností od prvního. Ke třetímu atomu je stačí uvést kromě typu ještě vzdálenost od druhého atomu a úhel mezi prvním, druhým a třetím atomem. Čtvrtý atom (a každý další) je určen typem, vzdáleností od předchozího atomu, úhlem mezi ním a předchozími dvěma a torzním úhlem rovin, kde první rovina je určených předchozími třemi atomy a druhou rovinu zadává poslední atom spolu s předchozími dvěma. Pro popsání obecné $N$-atomové molekuly potřebujeme $3N-6$ souřadnic. Číslice 6 se vztahuje k šesti nespecifikovaným stupňum volnosti: translaci a rotaci celé molekuly ve trojrozměrném prostoru.
+Zápis v interních souřadnicích se provádí pomocí Matice Z. U prvního atomu je uveden pouze jeho typ. Druhý atom je zadán typem a vzdáleností od prvního. Ke třetímu atomu je uvedena kromě typu ještě vzdálenost od druhého atomu a úhel mezi prvním, druhým a třetím atomem. Čtvrtý atom (a každý další) je určen typem, vzdáleností od předchozího atomu, úhlem mezi ním a předchozími dvěma a torzním úhlem rovin, kde první rovina je určených předchozími třemi atomy a druhou rovinu zadává poslední atom spolu s předchozími dvěma. Pro popsání obecné $N$-atomové molekuly potřebujeme $3N-6$ souřadnic. Číslice 6 se vztahuje k šesti nespecifikovaným stupňum volnosti: translaci a rotaci celé molekuly v trojrozměrném prostoru.
 
-K základním algoritmům pro práci s geometrickou reprezentací molekuly patří převod mezi interními a kartézskými souřadnicemi, přikládání molekulárních geometrií k sobě tak, aby mezi nimi byla co největší shoda. Počítačová grafika nachází aplikace při vizualizaci molekulových geometrií. Tyto vizualizace nahradili fyzické modely molekul.
+Geomertii molekuly je možno určit výpočetně pomocí optimalizace energie molekuly do základního stavu (globálního minima). Energii molekuly je možno vypočítat buď kvantově mechanickými molekulami, nebo molekulovou mechanikou. Empiricky je možné odhadnout geometrii molekuly pomocí porovnávání s jinými molekulami, pro něž je geometrie již známa. Experimentální určení struktury molekuly je možno provést pomocí Roentgenové krystalografie, nebo spektroskopickými metodami.
+
+K základním algoritmům pro práci s geometrickou reprezentací molekuly patří převod mezi interními a kartézskými souřadnicemi, nebo přikládání molekulárních geometrií k sobě tak, aby mezi nimi byla co největší shoda. Počítačová grafika nachází aplikace při vizualizaci molekulových geometrií. Tyto vizualizace dnes z velké části nahradily dříve používané fyzické modely molekul.
 
 \subsection{1D, 2D a 3D reprezentace molekuly v databázích}
 
-1D daty se rozumí bibliografické informace o molekule, 2D data představují strukturní grafovou reprezentaci. 3D data geometrie molekuly.
+1D daty se rozumí bibliografické informace o molekule, 2D daty se rozumí strukturní grafová reprezentace molekuly a 3D daty geometrická reprezentace molekuly.
 
 \subsection{Souborové formáty}
 
-Souborových formátů existuje v počítačové chemii velmi mnoho, protože autoři softwaru definovali vlastní pro každý software. Z vlastní zkušenosti jsem nabyl dojmu, že nejpoužívanější formáty jsou SDF, PDB, XYZ a SMILES.
+Souborových formátů existuje v počítačové chemii velmi mnoho, protože autoři softwaru často definovali vlastní formát pro každý software. Z vlastní zkušenosti jsem nabyl dojmu, že nejpoužívanější formáty jsou SDF, PDB, XYZ a SMILES.
 
-Formít PDB (Protein Data Bank) http://www.wwpdb.org/documentation/file-format MOL/SDF (Structure-Data File) uchovává molekuly ve strukturní reprezentaci. http://cactus.nci.nih.gov/SDF_toolkit/ Molecular Design Limited. SDF je rozšíření MOL které umožňuje přidat k molekule attributy. XYZ je vpodstatě výčet prvků společně s jejich kartézskými souřadnicemi v molekule. http://openbabel.org/wiki/XYZ_%28format%29
+Formít PDB (Protein Data Bank) http://www.wwpdb.org/documentation/file-format MOL/SDF (Structure-Data File) uchovává molekuly v strukturní? reprezentaci. http://cactus.nci.nih.gov/SDF_toolkit/ Molecular Design Limited. SDF je rozšíření MOL které umožňuje přidat k molekule attributy. XYZ je vpodstatě výčet prvků společně s jejich kartézskými souřadnicemi v molekule. http://openbabel.org/wiki/XYZ_%28format%29
 
-SMILES (SImplified Molecular Input Line Entry Specification) je . Nad ním je postaven dotazovací jazyk, který je pro molekulární struktury jako regulární výrazy pro textové řetězce.
+SMILES (SImplified Molecular Input Line Entry Specification) je strukturní formát zajímavý tím, že zápis molekuly má podobu textového řetězce. Nad formátem SMILES je postaven dotazovací jazyk, který je pro molekulární struktury jako regulární výrazy pro textové řetězce.
 
+Pro práci s molekulovými formáty je často používaný OpenBabel. Jedná se o softwarovou knihovna a sadu utilit pro převod mezi velkým množstvím používaných formátů.
 
+\section{Ab initio, semiempirické a empirické metody}
 
-Reprezentace molekul grafem znamená, že počítačová chemie používá grafové algoritmy. Problém určit, zda jsou atomy totožné. Jedná se o grafový isomorfizmus, což je NP problém. Indexování, snaha testovat jen prespektivní přiložení a rychle odmítat.
+Latinská fráze \emph{ab initio}, která se překládá jako „z prvotních principů“, v kontextu výpočetní chemie označuje výpočetní metody, které vycházejí z kvantové mechaniky. Jedním z postulátů kvantové mechaniky je, že vlnová funkce je úplnou charakteristikou systému. Ab initio metody fungují na principu určení vlnové funkce a z ní následně žádaných veličin. Někteří autoři do této skupiny zahrnují i metody založené na funkcionálu elektronové hustoty (DFT,  \textit{\foreignlanguage{english}{Density Functional Theory}}), jiní je vyčleňují jako samostatnou kategorii.
 
-Formáty. OpenBabel, softwarová knihovna a sada utilit pro převod mezi nimi.
+DFT metody jsou co se týče principu výpočtu velmi podobné ab initio metodám. Namísto vlnové funkce se pro charakteristiku systému používá funkcionál elektronové hustoty, který sice není úplnou charakteristikou systému, pro mnohé aplikace ale plně dostačuje, a navíc je jeho výpočet realizovatelný i pro velké biomolekuly, pro které by určení plné vlnové funkce trvalo příliš dlouho.
 
-\section{Hyperplocha potencialní energie}
+Semiempirické metody jsou modifikací ab initio metod takovou, že tam, kde to výrazně přispěje ke zrychlení výpočtu, se za cenu nižší přesnosti použije předem určených parametrů, které mohou být zjištěny i experimentálně.
 
+Empirické metody staví na jiných teoretických základech, než je kvantová mechanika. Příkladem může být molekulová mechanika, technika pro určování konformace a dalších parametrů molekul ze zjednodušeného modelu molekuly, který je založený na zákonech klasické fyziky. Využívání experimentálních parametrů je u empirických metod téměř pravidlem.
 
+%Jedno z kritérií kvality semiempirických a empirických metod se nazývá přenositelnost parametrů. V praxi se ukazuje, že v rámci jednotlivých tříd strukturně podobných molekul bývají empirické parametry pro jednotlivé molekuly velmi podobné, a proto je možné stejnou parametrizaci použít pro výpočty nad všemi molekulami dané třídy. Čím je míra přenositelnosti parametrů vyšší, neboli čím širší škálu molekul můžeme dostatečně přesně popsat s použitím jedné parametrizace, tím lépe vyhodnocovaný model generalizuje realitu.
 
-\section{Molekulové modelování}
+%Klasickou Newtonovskou mechaniku je možno označit za empirickou teorii. Gravitační konstanta je empirický parametr. Relativistická fyzika: tuto konstantu vypočítat.
 
-molekuly jsou moelovány jako kuličky na pružinkách. silová pole, neumí popsat vznik a zánik chemických vazeb, je výpočetně méně náročná, než kvantová mechanika. Typické silové pole AMBER, které
+%\subsection{Hyperplocha potencialní energie}
+%
+%Born-Oppenheimerova aproximace, která předpokládá fixní pozice jader dala vzniknout konceptu hyperplochy potencialní energie (PES, Potential Energy Surface). Hyperplocha potencialní energie je množina bodů v $1+3N-6$rozměrném prostoru, kde posledních $3N-6$ souřadnic představuje pozice jader atomů a první souřadnice je energie základního stavu molekuly s jádry na těchto pozicích.
+
+\subsection{Molekulová mechanika}
+
+Molekulová mechanika popisuje chování molekul pomocí principů z klasické fyziky. Modely, kterými se atomy řídí, se nazývají silová pole. Atomy jsou v molekulové mechanice chápány jako jako hmotné body, vazby mezi nimi se chovají podle Hookova zákona pro pružiny, rotace kolem vazby je modelována obvykle pomocí harmonického potenciálu atd. Při návrhu silových polí se klade důraz na co nejmenší výpočetní náročnost. To je důvod proč se energie vazby nepopisuje Moorovým potenciálem, ale kvadratickým polynomem, který je aproximací Moorova potenciálu v okolí rovnovážné délky vazby. Molekulová mechanika ve své základní formě neumí popsat vznik a zánik chemických vazeb. Na druhou stranu je výpočetně výrazně méně náročná, než kvantová mechanika. Typické silové pole UFF. Protože molekulová mechanika modeluje vazby mezi atomy, pracuje se strukturním zápisem molekuly.
 
 \section{Kvantová mechanika}
-Kvantová mechanika vychází se . Vlnová funkce je kompletní charakterizace kvantového systému. Na čase nezávislá shcrodingerova rovnice.
 
-Přípustné stavy systému jsou vlastní funkce \Psi operátorové rovnice
+Kvantová mechanika pracuje s geometrickým zápisem molekuly.
 
-H\Psi = E\Psi \fixme{haček nad H}
+
+Počátek kvantové fyzkyky se vztahuje k výsledkům Maxe Planka při výzkumu záření černého tělesa a Alberta Einsteina fotoelektrický jev kteří při popisu těchto jevů vyšli z předpokladu, že energie světla je kvantována na násobky Plankovy konstanty.. Ve věci záření černého tělesa v té době existovaly dva hlavní výsledky.  ale “ultrafialová katastrofa”. Druhá rovnice popisovala dobře chování v ultrafialové oblasti, ale selhávala při popisu nižších energií. Přínos M. Planka spočívá v tom, že nejprve nalezl rovnici, ve které spojil chování obou hypotéz tak, aby výsledná rovnice dávala správné výsledky pro všechny frekvence. Dále potom nalezl fyzikální vysvětlení pro takto vzniklou rovnici. 
+
+Vlnově částicová dualita. Louis de Broglie přišel s hypotézou, kdy všem objektům přiřadil de broglieho vlnu a uvedl vzorec k výpočtu její vlnové délky. (http://en.wikipedia.org/wiki/Matter_wave, najít lepší zdroj) V roce 1927 byla pozorována difrakce elektronů a pozorovaný difrakční obrazec přesně odpovídal frekvenci předpovězené de broighliho rovnicí.
+
+Na výsledky De Broglieho navázal Ervin Schrodinger, který v roce 19xx nalezl diferencialní rovnici, ze které je možno vypočíst funkci, popísující amplitudu de broigliho vlny ve všech bodech prostoru.
+
+Kvantová mechanika se postupně vyvýjela 
+kvantová elektrodynamika
+
+Hamiltonova idea charakteristické funkce, kterou poprve použil ve svém díle věnovaném paprskové optice. Každé optické soustavě přiřadil charakteristickou funkci, která popisovala veškeré studované vlastnosti soustavy. Operátor celkové energie se proto nazývá Hamiltonián.
+
+
+Základní rovnice kvantové fyziky ve tvaru
+
+\[E \psi = e \psi\]
+
+kde E je operátor, e je vlastní hodnota operátoru a \psi je vlnová funkce systému.
+
+Vlnová funkce je funkcí 
+\[\psi : R^3 -> C
+(x, y, z) -> a\]
+
+(FIXME jednotky?)
+
+která souřadnicím v prostoru přiřadí amplitudu v tom místě. Tato amplituda může být i komplexní číslo a nemá fyzikální význam. Absolutní hodnota z druhé mocniny vlnové funkce v určitém místě udává hustotu pravděpodobnosti, tedy pravděpodobnost, že se elektron vyskytuje v malém okolí bodu x, y z.  (FIXME co pro víceelektronvou vlnovou funkci, pst čeho?)
+Jedna z možností, jak o vlnové funkci uvažovat, je představit si ji jako neprůhledné orakulum, které nám umí vyjevit určitou fyzikální charakteristiku systému, pokud je tázáno vhodným operátorem.
+
+\[H \psi = E \psi\]
+
+Hamiltonián vypadá následovně
+
+Tuto nehezkou rovnici je možno vylepšit tím, že použijeme atomové jednotky. Jedná se o alternativní měrnou soustavu, která je zvolena tak, aby konstanty v rovnicích v atomových jednotkách byly rovny jedné a nebylo nutno je psát.
+
+Operátor celkové energie je možno rozdělit na operátory kinetické a potencialní energie
+
+kinetická energie elektronů, repulze elektronů, repulze jader, přitahování elektronu a jader
+
+Schrodingerova rovnice je analyticky řešitelná pouze pro systémy jedna částice v potenciálovém poli. To odpovídá vodíkovému atomu, případně kationtu helia?
+
+Aproximace
+Z tohoto důvodu je nutno přistoupit k následujicím aproximacím.
+
+Born Oppenheimerova aproximace
+Při výpočtu budeme uvažovat atomová jádra jako nepohyblivá. Souřadnice jader tedy nebudou vystupovat jako proměnné, ale jako konstanty. Tato idea je naprosto klíčová pro umožnění řešení schrodingerovy rovnice a z fyzikálního hlediska je opodstatněná, neboť  v kontrastu s elektrony se 18xxkrát hmotnější jádra opravdu dají považovat za stacionární. (Výpočetní chemie) Dalším přínosem této představy je idea hyperplochy potencialní energie (PES potential energy surface).
+
+Nevím jaká
+Při řešení schrodingerovy rovnice pro víceelektronový atom zanedbáme člen vzájemné interakce elektronů. V praxi se ukazuje, že tento krok vede k tomu, že energie získaná výpočtem je asi o xxx vyší, než kdybychom interakce elektronů uvažovali. Tato energie se nazývá korelační energie. Představa za tímto rozdílem je taková, že záporně nabyté elektrony se navzájem odpuzují. Když tyto interakce zanedbáme, xxx okolo jádra pohybují takovým způsobem
+
+
+Orbitalová aproximace
+Při řešení schrodingerovy rovnice pro víceelektronový atom můžeme začít počítat 
+Řešením schrodingerovy rovnice pro vodík dospějeme k celé řadě řešení, která splňují fyzikální podmínky. Pokud bychom si nechali vykreslit oblasti v prostoru, kde je  
+
+(výpočetní chemie) Schrodingerova rovnice má, jako každá jiná diferencialní rovnice, nekonečný počet řešení. Kvantová chemie klade na vlnovou funkci následujicí požadavky: vlnová funkce musí být , a tedy spojitá, integrál druhé mocniny přes celý (třídimenzionalní) prostor se musí rovnat jedné. Dále je nutno zahrnout Pauliho princip výlučnosti.
+
+Obecným přírodním principem je, že systémy se snaží zaujmout konfiguraci, které příšluší minimální potencialní energie. Řešení schrodingerovy rovnice spočívá ve snaze najít takovou vlnovou funkci systému, která mu přiřazuje nejmenší energii. 
+
+Teorie elektronové hustoty (Počítačová chemie)
+Bylo odvozeno, že celková energie soustavy (vlastní hodnota hamiltoniánu vlnové funkce) je určena ze znalosti funkce popisující eletronovou hustotu. Teorie funkcionálu elektronové hustoty tohoto faktu využívá pro
+
+(FIXME co je tady vstupem a výstupem a co se z toho dá všechno odvodit)
+
+Ab initio
+Výpočty pomocí schrodingerovy rovnice a Born oppenheimerovy aproximace mají asymptotickou složitost O(n^4), výpčty na základě teorie elektronové hustoty potom O(n^3). Kde n je počet elektronů v molekule. Protože pro malá n se naopak výpočet na základě teorie elektronové hustory ukazuje řádově pomalejsí. A pro velká n jsou obě metody neprakticky pomalé.
+
+Výhodou funkcionálu elektronové hustoty je, že výpočet je možno relativně jednoduše provést semiempiricky. Tedy za pomoci vhodne parametrizace výpočet zkrátit. Ukazuje se, že kvantově mechanické výpočty v chemii je funkcionál elektronové hustoty vždy efektivnější.
+
+Při používání této metody je nutno dávat si pozor na následující dvě fakta. Výpočet optimalizuje elektronovou hustotu, nikoli celkovou energii. (FIXME nechápu)
+
+Jak již bylo řečeno, vlnová funce jednoznačně určuje všechny parametry kvantového systému. To ovšem neplatí o elektronové hustotě. Zatímco z vlnové funce je možno vypočítat elektronovou hustotu, naopak to možné není. Proto pokud se veličiny, které se z výpočtu cheme dovědět,  nedají vypočítat z funkcionálu elektronové hustoty, nezbývá než řešit schrodingerovu rovnici.
+
+
+
+
+Základním pojmem kvantové mechaniky je vlnová funkce $\Psi$, která je úplným popisem systému, v našem případě molekuly. Hodnoty pozorovatelných veličin z vlnové funkce získáme tak, že na vlnovou funkci aplikujeme operátor, který veličině přísluší. Operátorem celkové energie systému je Hamiltonián $H$ a jeho aplikací na vlnovou funkci dostaneme Schrodingerovu rovnici, která ve své na čase nezávislé podobě zní $H\Psi = E\Psi$.
+
+Operátory jsou funktory, tedy funkce, které mají jako argument funkci, a jejich hodnotou je také funkce. Pro osvětlení tohoto pojmu je možné uvést operátor derivace. Operátorová rovnice s operátorem derivace může vypadat $\frac{d}{dx}f = af$. Řešení této rovnice je například funkce $e^x$ a obecně funkce ve tvaru $e^x$.
+
+Přípustné stavy systému jsou vlastní funkce Schrodingerovy rovnice. Vlastní funkce s nejmenší energií odpovídá základnímu stavu molekuly.\Psi operátorové rovnice. Řešit Schrodingerovy rovnice znamená určit takovou vlnovou funkci, která vyhovuje operátorové rovnici a přísluší jí nejmenší energie.
+
+ \fixme{haček nad H}
 
 kde H je operátor celkové energie, a E je energie příslušného stavu. Základní stav systému je stav s nejmenší energií.
 
-Operátory, jsou funktory, 
+Schrodingerovu rovnici je možné analyticky řešit jen pro chemické systémy s jedním elektronem, to jest atom H, kationty He+, Li2+ a tak dále. Ve složitějších případech je nutno hledat řešení numericky. Analytické řešení vodíkového atomu je významné tím, že jednoelektronové vlnové funkce se nazývají orbitaly a ve schématu LCAO (Linear Combination of Atomic Orbitals) se používají k vyjádření složitějších víceelektronových funkcí. Nabízí se srovnání s harmonickou analýzou, která signály reprezentuje jako linearní kombinaci harmonických složek. Stejně jako v případě harmonické analýzý se jedná pouze o matematickou reprezentaci reality, která nám má poskytnout vhled do problému, nikoli o fyzikální popis reality; nikdo se určitě nedomnívá, že například hudební nástroje obsahují spoustu malých harmonických oscilátorů, které zní dohromady a tvoří výsledný zvuk.
 
-Schrodingerovu rovnici je možné analyticky řešit jen pro chemické systémy s jedním elektronem, to jest vodíkový atom (kationt He+). Bohr Oppenheimerova approximace, která
+levels of theory
+
+Kvantově mechanické metody se zapisují značkou metoda/báze. Metody jsou například Hartree-Fock (HF), PM3 (Parametrized Model 3). Báze jsou.
+
+Bohr Oppenheimerova approximace, která
 
 elektrony a jádra jsou bodové náboje
 pozice jader je fixní a předem daná
 elektrony jsou nezávislé, se navzájem neovlivňují
+
+Druhý z předpokladů je oprávněný proto, že jádra jsou řádově hmotnější než elektrony a pohybují se mnohem pomaleji. Jádra atomů ve skutečných molekulách vybrují okolo svých rovnovážných poloh. Můžeme tedy považovat pozice jader za fixní a 
+
+Časté výpočty v kvantové chemii jsou. Optimalizace struktury molekuly do stavu s nejnižší energií. Pro výpočet energie se použije kvantový výpočet.
+
+Harree Fockova metoda
 
 řeší se optimalizační problém nalezení takové \(\Psi\), vyjádřené jako linearní kombinace bázových orbitalů, aby E byla minimální.
 
@@ -231,13 +364,12 @@ metoda/báze
 
 Limity aproximace
 
-Korelační energie elektronů je značná
+Korelační energie elektronů je značná \citep{s.~132}{cramer2004essentials}, z čehož plyne, že Born Oppenheimerova aproximace o nezávislosti elektronů je chybná. Naštěstí je možné těžit z toho, že chyba způsobená zanedbíním elektronové kolelace je u podobných molekul podobně velká, a tak to pro mnoho praktických aplikací nevadí. Pokud je potřeba zahrnout do výpočtu elektronovou korelaci, je potřeba použít metodu, která to umožňuje, má to ale velmi nepříznívý dopad na dobu výpočtu.
 
-Basis Set Superposition Error
+Volba báze má vliv na výsledek výpočtu. Čím je báze větší, tím lépe je systém popsán a tím nižší bude vypočtená energie, a to až do dosažení Hatree-Fockovy limity. Orbitaly jsou umístěny na jádrech atomů. Pokud se ve výpočtu nachází více atomů vedle sebe, bude v okolním prostoru přítomno mnoho orbitalů. Pokud chceme srovnávat energie reaktantů a produktu reakce, musíme si uvědomit, že v molekule reaktantu je přítomno mnohem více orbitalů. Řešením je přidat virtuální atomy rektantu A do reaktantu B a naopak. Basis Set Superposition Error
 
-výsledek výpočtu závisí na zvolené bázi
 
-levels of theory
+
 
 empirické metody, které 
 
@@ -254,7 +386,9 @@ Pro jednotlivé volné atomy definujeme jejich elektronegativitu, realné čísl
 
 Mezi parcialním nábojem a elektronegativitou existuje přímá souvislost. Samostatné atomy jsou elektricky neutální. Při utváření molekulových vazeb atomy navázané na ty s vyšší elektronegativitou nabývají parcialní kladný náboj v důsledku ztráty valenčních elektronů ve prospěch svého vazebného partnera, zatímco atomy s méně elektronegativním vazebným partnerem od něj elektrony přebírají. \todo{toho Sandersona můžu dát už sem}
 
-Parcialní náboje se definují pomocí
+Pomocí bodových nábojů na atomech není možné přesně popsat distribuci elektronové hustoty v molekule. Proto se při definování schématu výpočtu parciálních nábojů musejí autoři vždy zaměřit na určitá kritéria. Například Hückelovy náboje jsou výpočetně nenáročné (pokud uvažujeme jen samotnou populační analýzu a neuvažujeme kvantově mechanické vypočty, které jí předcházejí) a dají se použít k předpovědím reaktivity molekul, na druhou stranu nedokáží předpovědět fyzikální vlastnosti molekuly. Náboje dobře postihují elektrický potenciál okolo molekuly, u velkých organických molekul ale přiřazují nesmyslně velké náboje vnitřním atomům molekuly, a proto se nehodí na molekulově mechanické simulace.
+
+Metody založené na ekvalizaci náboje  
 
 Na ekvalizaci náboje vznikla celá řada metod, 1985 EEM, 1991 QEq, SQE pro rychlý výpočet náboje, od každé z těchto metod dále existují odvozené metody. Hodnocení korelace. Parametrizují se Mullikenovy, DFT, nějaké další (ty benchmarky), úspěšnost se hodnotí std odchylkou, korelací. Parametrizují se i parametry molekul, dipolové momenty, 
 
@@ -266,21 +400,27 @@ Náboje na atomech uvnitř molekuly nejsou významné a metoda má tendence stan
 
 R  Restricted přidává další omezení aby se předešlo výše uvedeným problémům.
 
+\section{}
+
+kuprov2012lecture5a
+
+\subsection{Mullikenova populační analýza}
+
+Mulikenova populační analýza přiřadí atomu $A$ parcialní náboj
+
+\[Q_A = - \sum_{\mu \in A} \sum_{v \in A} P_{\mu v} S_{\mu v} - \frac{1}{2} \sum_{\mu \in A} \sum_{v \in A} P_{\mu v} S_{\mu v}\].
+
+PS jsou překryvové integrály
+
+Právě uvedený vzorec znamená, že se provede sumace přes všechny dvojice bázových funkcí $\mu$ a $v$. Pokud se obě funkce nacházejí na stejném atomu, přiřadí se celá příslušná hustota tomuto atomu. Pokud se funkce nacházejí na různých atomech, připočte se polovina hustoty prvnímu atomu a polovina druhému atomu.
+
+Výhodou Mullikenovy populační analýzy je jednoduchost jejího výpočtu (z vlnové funkce) a fakt, že určené náboje můžeme s úspěchem použít pro předpovídání reaktivity molekul. Nevýhodou je fakt, že elektronová hustota v difúzních orbitalech je započtena jen k atomu, na kterém se orbital nachází, a také rovnoměrné rozdělení elektronové hustoty mezi oba dva atomy, což je zcela arbitrární pravidlo, které je navíc v rozporu s chemickou intuicí. 
+
+\subsection{Další schémata}
+
+Löwdinova populační analýza rozděluje elektronovou hustotu mezi atomy nerovnoměrně.
 
 
-\section{Ab initio, semiempirické a empirické metody}
-
-Latinská fráze \emph{Ab initio}, která se překládá jako „z prvotních principů“, v kontextu výpočetní chemie označuje výpočetní metody, které vycházejí z kvantové mechaniky. Jedním z postulátů kvantové mechaniky je, že vlnová funkce je úplnou charakteristikou systému. Ab initio metody fungují na principu určení vlnové funkce a z ní následně žádaných veličin. Někteří autoři do této skupiny zahrnují i metody založené na funkcionálu elektronové hustoty (DFT,  \textit{\foreignlanguage{english}{Density Functional Theory}}).
-
-DFT metody jsou co se týče principu výpočtu velmi podobné ab initio metodám. Namísto vlnové funkce se pro charakteristiku systému používá funkcionál elektronové hustoty, který sice není úplnou charakteristikou systému, pro mnohé aplikace ale plně dostačuje, a navíc je jeho výpočet realizovatelný i pro velké biomolekuly, pro které by určení plné vlnové funkce trvalo příliš dlouho.
-
-Semiempirické metody jsou modifikací ab initio metod takovou, že tam, kde to výrazně přispěje ke zrychlení výpočtu, se za cenu nižší přesnosti použije předem určených parametrů, které mohou být zjištěny i experimentálně.
-
-Empirické metody staví na jiných teoretických základech, než je kvantová mechanika. Příkladem může být molekulová mechanika, technika pro určování konformace a dalších parametrů molekul ze zjednodušeného modelu molekuly, který je založený na zákonech klasické fyziky (chemická vazba se například reprezentuje jako pružina). Využívání experimentálních parametrů je u empirických metod téměř pravidlem.
-
-Jedno z kritérií kvality semiempirických a empirických metod se nazývá přenositelnost parametrů. V praxi se ukazuje, že v rámci jednotlivých tříd strukturně podobných molekul bývají empirické parametry pro jednotlivé molekuly velmi podobné, a proto je možné stejnou parametrizaci použít pro výpočty nad všemi molekulami dané třídy. Čím je míra přenositelnosti parametrů vyšší, neboli čím širší škálu molekul můžeme dostatečně přesně popsat s použitím jedné parametrizace, tím lépe vyhodnocovaný model generalizuje realitu.
-
-%Klasickou Newtonovskou mechaniku je možno označit za empirickou teorii. Gravitační konstanta je empirický parametr. Relativistická fyzika: tuto konstantu vypočítat.
 
 %An alternative measure of the charge distribution involves a partitioning into partial atomic charges. While such partitioning is always arbitrary (see Chapter 9) simple methods tend to
 
@@ -321,7 +461,7 @@ Rozložení elektronové hustoty v molekule je pozorovatelná veličina. Existuj
 
 \chapter{Parcialní náboje}
 
-Ve stejnojaderných dvouatomových molekulách působí obje atomová jádra na elektrony stejně a elektronová hustota (vazebných elektronů) je taktéž rovnoměrně rozdělena mezi obje jádra. Vazby, podél kterých je elektronová hustota rozdělena rovnoměrně se nazývají nepolární. Dvouatomové molekuly složené z různých atomů mají elektronovou hustoru rozloženu podél vazby nesymetricky, protože jeden z atomů (v důsledku rozdílného protonového čísla a elektronové konfigurace) přitahuje elektrony větší silou, než ten druhý. Takové vazby se nazývájí polární, nebo, pokud jsou elektrony velmi silně přitahovány k jenomu z atomů, iontové. Ve víceatomových molekulách dochází k přesunu elektronů přes více než jednu vazbu. Vysoce elektronegativní substituenty v molekulách derivátů uhlovodíků (například halogeny) snižují elektronovou hustotu na navázaném uhlíkovém skeletu. S rostoucí vzdáleností od substituovaného atomu se účinek tohoto efektu snižuje. odmaturujZChemie s 120
+Ve stejnojaderných dvouatomových molekulách působí obje atomová jádra na elektrony stejně a elektronová hustota (vazebných elektronů) je taktéž rovnoměrně rozdělena mezi obje jádra. Vazby, podél kterých je elektronová hustota rozdělena rovnoměrně se nazývají nepolární. Dvouatomové molekuly složené z různých atomů mají elektronovou hustoru rozloženu podél vazby nesymetricky, protože jeden z atomů (v důsledku rozdílného protonového čísla a elektronové konfigurace) přitahuje elektrony větší silou, než ten druhý. Takové vazby se nazývájí polární, nebo, pokud jsou elektrony velmi silně přitahovány k jenomu z atomů, iontové. Ve víceatomových molekulách dochází k přesunu elektronů přes více než jednu vazbu. Vysoce elektronegativní substituenty v molekulách derivátů uhlovodíků (například halogeny) snižují elektronovou hustotu na navázaném uhlíkovém skeletu. S rostoucí vzdáleností od substituovaného atomu se účinek tohoto efektu snižuje. \citep[s.~120]{benešová2002odmaturuj}
 
 Elektronová hustota se nachází mezi atomy tvořícími vazebný pár, nikoli na atomech. Přiřazení elektronové hustoty k atomům, ač technicky ne zcela přesné, se ukázalo být velmi praktické, jak už při zápisu vzorců, tak při výpočtech.
 
@@ -343,14 +483,6 @@ Parcialní náboje je možno používat i kvantitativně, například jako jeden
 
 Kritériem správnosti kvantitativních výstupů jsou užitečnost a obecnost výpočetní metody. Užitečností se myslí existence experimentu, s nímž výpočetní metoda vykazuje dobrou, jinými slovy, který dobře modeluje. Obecnost je parametrem u empirických metod a jedná se primárně o míru přenositelnosti parametrů.
 
-Ekvalizace elektronegativity
-
-Elektronegatita je realné číslo obvykle v rozsahu \todo{rozsah} Je možno chápat jako schopnost přitahovat elektrony. Při pohledu na periodickou tabulku platí, že při pohybu směrem doprava a nahoru elektonegativita roste. Existuje mnoho schémat pro výpočet elektronegativity. Elektronegativita se definuje pro volné atomy.
-
-
-
-Vznik molekuly spočívá ve sdílení elektronů mezi vícero atomy. Ustavení molekuly můžeme chápat jako ustavení rovnovážného stavu v uspořádání elektronového oblaku. Pokud by se elektonegativita zvoleného atomu zvýšíla, bude více obklopen elektrony, což jeho elektronegativitu opět sníží.
-
 \section{Metody výpočtu}
 
 Metody pro výpočet nábojů se dají rozdělit do čtyř kategorií. \citep[s.~50]{cramer2004essentials}
@@ -365,15 +497,11 @@ Třída IV je vyhrazena metodám, které vycházejí z metod ve třídách II a 
 
 V praxi se nejčastěji používají hodnoty parcialních nábojů získané metodami ve třídách II a III. V případě, že pro požadovanou aplikaci je výpočet některou z metod tříd II nebo III příliš časově náročný, je možné náboje aproximovat použitím vhodné metody z třídy I.
 
-%Výsledkem této práce je 
-%Ačkoli jsou atomové parcialní náboje v principu neměřitelný teoretický konstrukt, zůstanou i na dále důležitým prvkem v chemii. Do způsobů, jak je určovat bylo investováno mnoho výzkumného úsili.
+Ekvalizace elektronegativity
 
-%Polární molekuly
+Elektronegatita je realné číslo obvykle v rozsahu \todo{rozsah} Je možno chápat jako schopnost přitahovat elektrony. Při pohledu na periodickou tabulku platí, že při pohybu směrem doprava a nahoru elektonegativita roste. Existuje mnoho schémat pro výpočet elektronegativity. Elektronegativita se definuje pro volné atomy.
 
-%Nepolární molekuly
-
-%Molekuly léčiv
-
+Vznik molekuly spočívá ve sdílení elektronů mezi vícero atomy. Ustavení molekuly můžeme chápat jako ustavení rovnovážného stavu v uspořádání elektronového oblaku. Pokud by se elektonegativita zvoleného atomu zvýšíla, bude více obklopen elektrony, což jeho elektronegativitu opět sníží.
 
 Metody equilibrace náboje jsou motivovány vyjádřením potencialní energie atomu v závislosti na náboji a minimalizováním potencialní energie za podmínky známé hodnoty celkového náboje molekuly.
 
@@ -404,41 +532,69 @@ vychází ze tří podmínek. První podmínkou . Druhá podmínka, která dala 
 
 Nejenom z hlediska úspornosti zápisu, ale také pro pozdější počítačové řešení je vhodné tuto soustavu rovnic zapsat maticovým schématem
 
-Aq=b, kde q je vektor neznámých.
+\(Aq=b\), kde \(q\) je vektor neznámých.
 
-B_1 \frac{\kappa}{R{1,2}} ... \frac{\kappa}{R{1,N}} -1
-\frac{\kappa}{R{2,1}} B_2 ... \frac{\kappa}{R{2,N}} -1
-
-\frac{\kappa}{R{N,1}} \frac{\kappa}{R{N,2}} ... B_N -1
-1 1 ... 1 0
-
-q_1
-q_2
-...
-q_N
-\bar{\xi}
-
--A_1
--A_2
-...
--A_N
-Q
-
+\[
+\begin{pmatrix}
+B_1 & \frac{\kappa}{R{1,2}} & \dots & \frac{\kappa}{R{1,N}} & -1 \\
+\frac{\kappa}{R{2,1}} & B_2 & \dots & \frac{\kappa}{R{2,N}} & -1 \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+\frac{\kappa}{R{N,1}} & \frac{\kappa}{R{N,2}} & \dots & B_N & -1 \\
+1 & 1 & \dots & 1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+q_1 \\
+q_2 \\
+\vdots \\
+q_N \\
+\bar{\chi}
+\end{pmatrix}
+=
+\begin{pmatrix}
+-A_1\\
+-A_2\\
+\vdots \\
+-A_N\\
+Q\\
+\end{pmatrix}
+\]
 
 
 Pro použití EEM potřebujeme znát prostorové uspořádání atomů v molekule, parametry a pro každý atom a konstantu kapa.
 
 Potencialní energie
 
-Můžeme značit E, neboť jiná než potencialní energie v tomto odvození nevystupuje nebo V (jak je obvyklé v kvantové mechanice)
+Můžeme značit \(E\), neboť jiná než potencialní energie v tomto odvození nevystupuje nebo V (jak je obvyklé v kvantové mechanice)
 
-$$E=\frac{q_1 q_2}{\epsilon r_{1,2}}$$
+\[E=\frac{q_1 q_2}{\epsilon r_{1,2}}\]
 
 Parametrizace
 
 Parametry mají chemický význam
 
 \section{Charge Equilibration (QEq)}
+
+\[
+\begin{pmatrix}
+Q_1 & Q_2 & \dots & Q_i & -1 \\
+J_{2,1} - J_{1,1} & J_{2,2} - J_{1,2} & \dots & J_{2,j} - J_{1,j} & -1 \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+J_{i,1} - J_{1,1} & J_{i,2} - J_{1,2} & \dots & J_{i,j} - J_{1,j} & -1 \\
+\end{pmatrix}
+\begin{pmatrix}
+-Q_{tot} \\
+\chi_2-\xi_1 \\
+\vdots \\
+\chi_i-\chi_1 \\
+\end{pmatrix}
+=
+-\begin{pmatrix}
+-Q_{tot} \\
+\chi_2-\xi_1 \\
+\vdots \\
+\chi_i-\chi_1 \\
+\end{pmatrix}
+\]
 
 Stejně jako u metody EEM vycházíme z výrazu pro potencialní energii. Autoří QEq ve svém odvození nezabývají tím, jak tento vztah vypadá, ale 
 
@@ -476,6 +632,160 @@ V původním článku vycházejí z ekvilibrace náboje, na čež zavedou split 
 Princip ekvilibrace náboje, ekvivalentně ekvilibrace elektronegativity
 
 \todo{proč je tady náboj to samý co chemický potenciál?, molární g energie?}
+
+\chapter{Numerická matematika}
+
+Numerická matematika studuje konstruktivní metody matematické analýzy a algebry. Konstruktivní metody jsou postupy, jejichž aplikací lze získat řešení matematických úloh s libovolnou pevně zvolenou přesností pomocí provedení konečného počtu aritmetických operací. Některé úlohy jsou řešitelné přímo (soustava linearních rovnic), jiné pouze přibližně (diferencialní rovnice). Přímá řešení jsou zatížena zaokrouhlovacími chybami, ke kterým dochází při reprezentaci čísel v počítači na omezeném počtu bitů. Přibližná řešení jsou navíc zatížena chybami metody, které vznikají tím, že se nehledá řešení původního problému, ale aproximace tohoto řešení. \citep[s.~147]{černá1987základy}
+
+Pokud hromadění zaokrouhlovacích chyb během výpočtu může dramaticky ovlivnit výsledek, který získáme použitím numerické metody, je taková metoda numbericky nestabilní. Numerická stabilita je velmi žádoucí vlastnost numerických metod. \citep[s.~151]{černá1987základy}
+
+Řešení soustav linearních rovnic
+
+Jak metoda EEM tak Qeq nevyžaduje z výpočetního hlediska nic víc než vyřešení soustavy n linearních rovnic s n neznámými. Takovou soustavu můžeme maticově zapsat takto
+
+\[Ax = b\]
+
+Pro řešení soustav linearních rovnic nám numerická matematika nabízí velké množsví různých metod, jak přímých, tak aproximačních.
+
+Násobení inverzní maticí
+
+Pokud soustavu zprava vynásobíme maticí A^-1, dostaneme
+
+\[A^{-1}Ax = A^{-1}b\]
+\[x = A^{-1}b\]
+
+Inverziní matici vypočteme jako
+
+\[A^{-1} = \frac{1}{det A} A s vlnovkou\]
+
+kde A s vlnovkou je matice adjungovaná k matici A.
+
+Nevýhody řešení násobením inverzní maticí jsou jednak velký druhak aritmetických operací, které musíme provést a z toho plynoucí akumulace zaorkouhlovacích chyb, navíc je metoda na tyto chyby velmi citlivá pro soustavy, jejichž determinant je blízky nule, a nakonec metoda nedokáže využít strukturu zadání k paměťovým úsporám, protože inverzní matice je vždy hustá, a to i když vstupní matice byla symetrická nebo řídká.
+
+Gaussova eliminace
+
+Algoritmus, který se běžně vyučuje na přednáškách z linearní algebry. Numerická stabilita, změna pořadí řádků tak, aby. Tento algoritmus používají programy .... Je možno zpětně dosadit a vypočítat hodnotu. Na příkladech se ukázalo, že.
+
+Dekompozice
+
+Metody dekompozice. Výhodou je, že dekompozice řídké matice je opět řídká (zatímco inverzní matice bude hustá). Dekompozice má složitost n3, řešení se znalostí dekompozice má složitost n2. je numericky přesnější než násobení inverzní maticí.
+
+Je možné vytvořit algirmus, který využívá, že matice je symetrická. To znamená, že se ušetří polovina paměťi.
+
+Iterativní řešení
+
+Interpolace
+
+Pokud máme $n$ bodů, můžeme je proložit polynomem stupně $n+1$. polynomy se konstruují jako. Zajístí se tím, že každý z činitelů bude v bodě $x_i$ nabývat hodnoty $y_i$ a v ostatních bodech bude nabývat hodnoty 1. Nevýhoda je citlivost na chyby měření. Metoda interpoluje polynomem velkého stupně. Metodu nelze použít pokud máme více rozdílnych hodnot y pro jedno x_i.
+
+\chapter{Strojové učení}
+
+Linearní regrese
+
+Minimalizuje součty čtverců svislých vzdáleností mezi přímkou a neměřenými body.
+
+Alternativně je možné minimalizovat vzdálenosti mezi přímkou a naměřenými body.
+
+Predikční chyba,
+
+Nevýhoda metody je citlivost na odlehlé body.
+
+Mohlo by se zdát, že metoda umí aproximovat pouze linearní závislosti. Není tomu tak. Například pokud chceme proložit parabolu, použijeme hypotézu x1, x2, kde x2 je x^2.
+
+Metoda nejmenších čtverců
+
+Strojové učení
+
+Metody používané ve strojovém učení byly původně vyvinuty v matematické statistice (regrese), umělé inteligenci (, 
+
+Učící data, testovací data a ověřovací data.
+Učící data jsou vstupem pro parametrizaci hypotézy. Na testovacích datech se ověří tato parametrizace. Na ověřovacích datech se ověří volba hypotézy. Tento postup předchází situaci, kdy vývojář vyladí metodu pro jeden soubor dat, na kterém pak funguje výborně, ale zcela selhává na jiných datech.
+
+RANSAC
+
+Random sample consensus . Předpokládáme, že vstupní data obsahují malé množství odlehlých bodů. body inliers, správné hodnoty a outliers, chyby. Pokud bychom aplikovali metodu nejmenších čtverců na všechna data, bude výsledek negativně ovlivněn přítomností outliers. Metoda RANSAC provádí náhodné podmnožiny vstupních dat, vypočítá metodou nejmenších čtverců, . Běh metody selže, pokud v náhodném výběru ležely outliers. Iterace se mnohokrát opakuje. Vybírá ze vstupní množiny, za předpokladu, že budou le
+
+Algoritmus byl poprve představen v článku z roku kde jej autoři využili při řešení problému v oblasti počítačového vidění.
+
+Určit $p$, pravděpodobnost že algoritmus uspěje.
+
+$w$ podíl správných bodů
+$n$ počet bodů, které musíme vybrat
+$k$ je počet iterací
+$w^n$ je pravděpodobnost, že nevybereme odlehlý bod a $1-w^n$ je pravděpodobnost, že alespoň jeden z bodů je odlehlý bod
+$(1-w^n)^k$ je pravděpodobnost, že běh algoritmu v žádné iteraci nevybere množinu platných bodů
+\[1-p=(1-w^n)^k\]
+
+Podmínkou fungování algoritmu je, že $w$, podíl správných bodů, je dostatečně vysoké. Z grafu je vidět, že pravděpodobnost zdárného běhu algoritmu rychle klesá s tím, jak se zvyšuje podíl odlehlých bodů v datech.
+
+Protože uvádí, že chybných je jen několik málo molekul, zdálo by se, že metoda RANSAC by mohla být užitečná v první fázi běhu programu.
+
+
+
+
+Zamyšlení
+
+V této práci implementované metody, EEM a Qeq, 
+
+Vědecká metoda, jak ji definoval anglický filozof Bacon, se uznačuje jako redukcionistická. Je možno ji popsat tak, že se snaží komplexní systém rozdělit na vzájemně co nejméně interagující oddělené části, prostudovat každou část zvlášť a na základě takto získaných zkušeností pochopit celek. Opakem redukcionistického přístupu je přístup holistický, který se snaží zkoumaný objekt pojmout jako celek. “Celek je víc než jen součet jeho částí”. Argumentem pro postoj, že samotný redukcionistický přístup je nedostatečný, je několik. Emergentní vlastnosti. Znám Austrálii, znám králiky, ale nikdo nedokázal včas odhadnout, co udělají králící v austrálii.
+
+V součastnosti existuje kniha New kind of science, ve které Wolfram, který je znám jako zakladatel společnosti vyvíjející matematický softwarový balik Mathematica, a mezi studenty technických a přírodovědných oborů také pro webový portál wolframalpha.com
+
+Popisuje jednoduchý “buněčný automat”, systém sestávající z řady osmi políček, která mohou být buď černá nebo bílá, a tabulky pravidel, která zadává “přechodovou funkci” mezi stavy automatu. Wolframův argument je následujicí: takto zadaný buněčný automat je velmi jednoduchý systém, stejnětak funkce řídící přechody mezi stavy. Přesto může automat vykazovat složité vzory aktivity, které přímo nevyplývají z přechodových pravidel.
+
+V knize Fragments of Reality si autoři všímají ještě dalšího jevu. Přestože Jako příklad uvádějí experiment, kdy autoři vytvořili komplikovanou simulaci ekosystému, zahrnující xx parametrů, některé z nich dokonce náhodné, přesto bylo možno vývoj simulace popsat pomocí čtyř parametrů agregovaných přes všechny čtverce (ZDROJ) 
+
+Autoři předkládají svoji představu, že následující strukturu. Z jednoduchých základních zákonů se objevuje složitý (autoři jej nazývají „noční můra redukcionistů” (reductionist nightmare)), který se následně opět redukuje na relativně předvídatelnou strukturu. Následně se autoři zamýšlejí, nakolik je (ve skutečnosti je svět složítý, jen si v něm lidské vědomí umí najít to jednoduché)
+Poznatky
+
+přesnost
+
+doba kompilace
+
+Použití knihovny se ukázalo nepříznívý efekt na dobu kompilace, která na počítači dosahovala nepřijemných 15 vteřin. Pomocí 
+
+S knihovnou souvisí i další problém. Knihovna je založena na šablonách (možnost používat různé typy jako prvky matic) a preprocesorových makrech (dovolují autorům rozdělit definici třídy mezi více souborů -- hlavní definici a pluginy)
+
+
+Zdroje
+
+Ian Steward Why Beauty Is Truth
+Popularizační kniha, která v historickém kontextu představuje myšlenky, které nakonec (v retrospektivním pohledu) vyvrcholily formulací teorie grup. Výklad se zaměřuje na osobnosti zůčastněných matematiků. Závěr knihy se zabývá matematickou fyzikou.
+
+Essentials of Computational Chemistry
+Učebnice počítačové chemie, předpokládá se znalost základů kvantové fyziky, podrobně popisuje principy stojící za kvantově mechanickými výpočty (zejména aproximace při řešení Schrodingerovy rovnice a v teorii funkcionálu hustoty). V úvodu se shrnují důležité velké koncepty  kvantové mechaniky, ujasňuje se například pojem orbitalu.
+
+Elements of Physical Chemistry
+Zkrácená verze masívní (20xx stran) učebnice Physical Chemistry od stejného autora, určená pro studenty biologických oborů.
+
+Brdečka Fysikální chemie
+Učebnice fyzikální chemie. Kvantové mechanice je věnována jen malá část knihy, která představuje záření černého tělesa, Bohrův model atomu a Schrodingerovu rovnici. V celé knize se vůbec nevyskytuje hamiltonián (operátor celkové energie) a Schredingerova rovnice se uvažuje vždy jen pouze jednoelektronová.
+
+Ian Stewart, Jack Cohen Fragments of reality
+Popularizační kniha, ve které autoři předkládají svůj pohled na otázky spadající do filozofie vědy.
+
+RALPH G PEARSON Chemical hardness and density functional theory J. Chem. Sci., Vol. 117, No. 5, September 2005, pp. 369–377.
+Článek, ve kterém jeden z objevitelů pojmu chemická tvrdost vysvětluje proces, kterým byl tento pojem zaveden a posléze kvantitativné definován. V dobře srozumitelném výkladu je dána do souvislosti ionizační energie, tvrdost a elektronegativita, což se hodí pro článek (o qeq)
+
+SOftware
+
+Open Babel
+Eigen
+QT4
+QtTest
+gcc
+
+%Výsledkem této práce je 
+%Ačkoli jsou atomové parcialní náboje v principu neměřitelný teoretický konstrukt, zůstanou i na dále důležitým prvkem v chemii. Do způsobů, jak je určovat bylo investováno mnoho výzkumného úsili.
+
+%Polární molekuly
+
+%Nepolární molekuly
+
+%Molekuly léčiv
+
+
+
 
 \chapter{Předchozí implementace}
 EEM
@@ -544,7 +854,17 @@ Hypotézu o chybných vstupních datech je možno ověřit pomocí optimalizace 
 
 Všechny hypotézy je možno otestovat manualní inspekcí vyřazených molekul.
 
+\section{Parametrizace}
+
+Při parametrizaci metod EEM i Qeq je cílem nalézt takové parametry, které minimalizují predikční chybu na učící sadě molekul. V případě metody EEM to znamená pro pevně dané $\kappa$ nalézt zbývající parametry metodou nejmenších čtverců.
+
+\input{nejmensictvercepseudoinverze.tex}
+
 \chapter{Implementace}
+
+\section{Možnosti pro paralelizaci výpočtů}
+
+\input{paralelizace.tex}
 
 \section{Electronegativity equalization method}
 
@@ -562,16 +882,43 @@ Milne, G.W.A., Nicklaus, M.C., Driscoll, J.S., Wang, S. and Zaharevitz. D. The N
 
 \chapter{Výpočet parcialních nábojů QM}
 
-Gaussian . Název je odvozen od Gaussových křivek, které se používají k aproximaci složek vlnové funkce.
+\section{MetaCentrum}
+
+Národní Gridová Infrastruktura MetaCentrum je aktivita sdružení CESNET, z.s.p.o, která sdružuje akademickou výpočetní infrastrukturu v České Republice. Zaměstnancům a studentům zapojených institucí je umožněno zdarma využívat dostupnou infrastrukturu pro výzkumné účely.
+
+Pro obsluhu výpočetních zdrojů je využíván dávkový systém TORQUE (Terascale Open-source Resource and QUEue Manager), což je reimplementace staršího systému PBS (Portable Batch System). Uživatelé zasílají výpočetní úlohy do fronty a systém je postupně spouští. Priorita uživatelů je dána jednak podle jejich pracoviště (uživatelé příslušející k organizaci, která vlastní určitý hardware, mají prioritu využívat tento hardware) a podle fairshare, což je číslo vyjadřující, jak moc uživatel systém v nedávné době využíval. Čím více uživatel propočítal, tím je toto číslo nižší, a tím menší prioritu jeho úlohy dostanou. Svoji fairshare si může uživatel zvýšit, když bud publikovat články s poděkováním MetaCentru.
+
+Úlohu do systému TORQUE zašlete příkazem qsub.
+
+qsub -l walltime=3h -l nodes=1:ppn=2 -l mem=1g -l scratch=500mb mujskript.sh
+
+Právě uvedený příkaz požaduje spustit skript.sh na jednom počítači se dvěma procesory a 1 GiB operační paměti. Přepínač -l udává očekávanou dobu běhu úlohy. Požadované zdroje je potřeba zadat co nejpřesněji, ale raději více než méně. Pokud úloha překročí kterýkoli ze zadaných limitů, bude zabita. Pokud úloha požaduje zbytečně mnoho zdrojů, bude zbytečně dlouho čekat ve frontě. Scratch je název pro lokální disk pro uložení dat v průběhu výpočtu.
+
+Prováděný skript by měl 
+
+
+
+Metacentrum je 
+
+\section{Gaussian 09}
+
+HE THAT RISETH LATE MUST TROT ALL DAY.
+
+                  -- BENJAMIN FRANKLIN
+
+Gaussian je počítačový program pro provádění kvantově chemických výpočtů, který Je významný zejména tím, že má implementovánu velmi širokou škálu různých výpočetních metod. Název programu je odvozen od Gaussových křivek, které se používají k aproximaci bázových funkcí, ve kterých je vyjádřena vlnové funkce. Program je dále zajímavý tím, že je drahý, a jeho licenční podmínky jsou značně restriktivní. Akademická licence programu Gaussian stojí přibližně 2000 USD na dva roky a součástí podmínek používání programu je, že k němu nebude umožněn přístup autorům konkurenčního software. Také je zakázáno zveřejnovat benchmarky programu. 
+
+Gaussian pracuje v dávkovém režimu. V souboru s příponou .com uvedeme, jaký výpočet chceme provést, a následně vstupní molekuly. Program Gaussian vytvoří soubor .log, ve kterém jsou informace o průběhu výpočtu, výsledek výpočtu, náhodně vybraný citát a statistiky o době běhu programu. Soubor .log je dobré vždy celý prohlédnout a ujasnit si význam všech zpráv v něm, aby se ověřilo, že při výpočtu nedošlo k chybě.
+
+# HF/6-31G
+
+Populační analýzu je možno zvolit parametrem Pop. Pokud žádnou hodnotu neuvedeme, použije se Pop=Minimal, což způsobí výpsání Müllikenových nábojů.
 
 %http://cactus.nci.nih.gov/download/nci/
 
 BLAS (Basic Linear Algebra Subprograms) je API specifikující často používané operace linearní algebry nad vektory a maticemi. Pro přehlednost je knihovna rozdělena na tři části. BLAS Level 1 Blas Level 2 a Blas Level 3 obsahuje procedury pro operace mezi dvěma maticemi. Nad primitivy obsažené v BLAS je postaven LAPACK (Linear Algebra PACKage). První implementace v jazyce FORTRAN77 Pro obě rozhraní existuje celá řada implementací, výrobci počítačových procesorů často dodávají vlastní implementace, ATLAS obsahuje benchmark, který automaticky volí nejlepší implementace pro hardware. Obsahují významnou součást benchmarků pro HPC.
 
 Jména procedur reflektují datový typ (s, single precision, float32, d, double precision, float64)
-
-
-
 
 
 
@@ -680,6 +1027,8 @@ U modelu muzeme preferovat vypocetni jednoduchost, coz je pripad chemoinformmati
 \chapter{Závěr}
 
 Ukazuje se, že obě metody jsou v dobré shodě s ab-initio výpočtem. Metoda QEq dosahuje výrazně lepších výsledků než EEM za cenu jen mírného zvýšení časové náročnosti výpočtu.
+
+
 
 %% Lists of tables and figures, glossary, etc.
 %\printindex
